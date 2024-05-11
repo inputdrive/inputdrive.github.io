@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>IP API Data</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>IP API Data</h1>
+    <div id="data"></div>
+
+    <script>
+        $(document).ready(function() {
+            $.getJSON("https://ipapi.co/json/", function(data) {
+                var output = JSON.stringify(data, null, 2);
+                $("#data").text(output);
+            });
+        });
+    </script>
+    <script>
+        const lastModified = new Date(document.lastModified);
+        document.getElementById("lastModified").innerHTML = "Page last edited: " + lastModified;
+    </script>
+</body>
+</html>
