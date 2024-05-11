@@ -1,0 +1,81 @@
+/* Colorblind-friendly stylesheet */
+
+/* Define color variables */
+:root {
+    --color-primary: #007bff; /* Blue */
+    --color-secondary: #6c757d; /* Gray */
+    --color-accent: #17a2b8; /* Cyan */
+    --color-success: #28a745; /* Green */
+    --color-danger: #dc3545; /* Red */
+    --color-warning: #ffc107; /* Yellow */
+    --color-info: #17a2b8; /* Cyan */
+}
+
+/* Apply colorblind-friendly styles */
+body {
+    color: var(--color-secondary);
+    background-color: #fff;
+}
+
+a {
+    color: var(--color-primary);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--color-primary);
+}
+
+/* Add more styles as needed */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: var(--color-primary);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: var(--color-secondary);
+}
+
+.alert {
+    padding: 10px;
+    background-color: var(--color-warning);
+    color: #fff;
+    border-radius: 4px;
+}
+
+.card {
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-control:focus {
+    border-color: var(--color-primary);
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
