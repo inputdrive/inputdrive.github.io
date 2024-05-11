@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mortgage Calculator</title>
+    <script>
+        function calculateLoan() {
+            var loanAmount = parseFloat(prompt("Enter loan amount:"));
+            var interestRate = parseFloat(prompt("Enter interest rate (%):"));
+            var periodYears = parseFloat(prompt("Enter loan period (in years):"));
+            var additionalPayment = parseFloat(prompt("Enter additional payment (optional):"));
+
+            var monthlyInterestRate = interestRate / 100 / 12;
+            var totalMonths = periodYears * 12;
+
+            var monthlyPayment = (loanAmount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -totalMonths));
+            var totalPayment = monthlyPayment * totalMonths;
+            var totalSavings = (monthlyPayment + additionalPayment) * totalMonths - loanAmount;
+
+            var result = "Loan Amount: $" + loanAmount.toFixed(2) + "<br>";
+            result += "Interest Rate: " + interestRate.toFixed(2) + "%<br>";
+            result += "Loan Period: " + periodYears.toFixed(2) + " years<br>";
+            result += "Additional Payment: $" + additionalPayment.toFixed(2) + "<br>";
+            result += "Monthly Payment: $" + monthlyPayment.toFixed(2) + "<br>";
+            result += "Total Payment: $" + totalPayment.toFixed(2) + "<br>";
+            result += "Total Savings: $" + totalSavings.toFixed(2) + "<br>";
+
+            document.getElementById("result").innerHTML = result;
+        }
+    </script>
+</head>
+<body>
+    <h1>Mortgage Calculator</h1>
+    <button onclick="calculateLoan()">Calculate</button>
+    <div id="result"></div>
+    <button onclick="window.print()">Print</button>
+    <p id="lastModified"></p>
+    <script>
+        const lastModified = new Date(document.lastModified);
+        document.getElementById("lastModified").innerHTML = "Page last edited: " + lastModified;
+    </script>
+    <a href="/index.html">Go to Home page</a><br>
+</body>
+</html>
