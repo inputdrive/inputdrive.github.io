@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         /* CSS styles for the page */
         body {
@@ -32,7 +34,6 @@
     <p>This is a simple HTML page with some CSS styling.</p>
     <p>This site is hosted with GitHub Pages.</p><br>
     <p id="demo"></p>
-    <p id="lastModified"></p>
     <script>
         const date = new Date(document.lastModified);
         document.getElementById("demo").innerHTML = date;
@@ -49,6 +50,9 @@
             .catch(error => {
                 console.error('Error:', error);
             });
+    </script>
+    <p id="lastModified"></p>
+    <script>
         const lastModified = new Date(document.lastModified);
         document.getElementById("lastModified").innerHTML = "Page last edited: " + lastModified;
     </script>
