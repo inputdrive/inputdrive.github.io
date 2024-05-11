@@ -11,7 +11,7 @@
     <script>
         $(document).ready(function() {
             $.getJSON("https://ipapi.co/json/", function(data) {
-                var output = "<h2>Name: " + data.name + "</h2>";
+                var output = "<h2>Name: Your Browser States:</h2>";
                 output += "<p>Data: " + JSON.stringify(data, null, 2) + "</p>";
                 $("#data").html(output);
                 $("#data").css("text-align", "center");

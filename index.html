@@ -21,16 +21,18 @@
     </style>
 </head>
 <body>
-    <h1>Hello World</h1>
+    <h1>Hello World!</h1>
     <h2>Wow this is easy.</h2>
-    <h3>how about </h3>
+    <h3>How about some pages: </h3>
+    <h4>Click on the links below to navigate to different pages:
     <a href="/random.html">Go to Random page</a><br>
     <a href="/mortgage_calculator.html">Go to Mortgage Calculator</a><br>
     <a href="/parsing_api.html">Go to Parsing API</a><br>
-    <p>This site is hosted with GitHub Pages.</p>
-    <p>convert the last modified property into a date object:</p>
+    <a href="/index.html">Go to Home page</a></h4>
+    <p>This is a simple HTML page with some CSS styling.</p>
+    <p>This site is hosted with GitHub Pages.</p><br>
     <p id="demo"></p>
-    <!-- Check if JavaScript is blocked -->
+    <p id="lastModified"></p>
     <script>
         const date = new Date(document.lastModified);
         document.getElementById("demo").innerHTML = date;
@@ -47,8 +49,6 @@
             .catch(error => {
                 console.error('Error:', error);
             });
-    </script>
-    <script>
         const lastModified = new Date(document.lastModified);
         document.getElementById("lastModified").innerHTML = "Page last edited: " + lastModified;
     </script>
