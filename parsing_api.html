@@ -3,37 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IP API Data</title>
+    <title>IP API Data Parser</title>
+    <link rel="stylesheet" href="stylesheet.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <h1>IP API Data</h1>
+    <h1>IP API Data Parser</h1>
     <div id="data"></div>
     <script>
         $(document).ready(function() {
             $.getJSON("https://ipapi.co/json/", function(data) {
-                var output = "<h2>Name: Your Browser States:</h2>";
+                var output = "<h2>Your Browser States</h2>";
                 output += "<p>Data: " + JSON.stringify(data, null, 2) + "</p>";
                 $("#data").html(output);
                 $("#data").css("text-align", "center");
-
                 var latitude = data.latitude;
                 var longitude = data.longitude;
                 initMap(latitude, longitude);
             });
         });
-
-        function initMap(latitude, longitude) {
-            var location = { lat: latitude, lng: longitude };
-            var map = new google.maps.Map(document.getElementById("map"), {
-                center: location,
-                zoom: 10
-            });
-            var marker = new google.maps.Marker({
-                position: location,
-                map: map
-            });
-        }
+        <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
+                function initMap(latitude, longitude) {
+                    var location = { lat: latitude, lng: longitude };
+                    var map = new google.maps.Map(document.getElementById("map"), {
+                        center: location,
+                        zoom: 10
+                    });
+                    var marker = new google.maps.Marker({
+                        position: location,
+                        map: map
+                    });
+                }
     </script>
     <p id="lastModified"></p>
     <script>
