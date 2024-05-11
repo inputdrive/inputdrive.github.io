@@ -24,8 +24,8 @@
     <h1>Hello World</h1>
     <h2>Wow this is easy.</h2>
     <h3>how about </h3>
-    <a href="/random.html">Go to Random page</a><p></p>
-    <a href="/mortgage_calculator.html">Go to Mortgage Calculator</a>
+    <a href="/random.html">Go to Random page</a><br>
+    <a href="/mortgage_calculator.html">Go to Mortgage Calculator</a><br>
     <p>I'm hosted with GitHub Pages.</p>
     <p>convert the last modified property into a date object:</p>
     <p id="demo"></p>
@@ -50,6 +50,10 @@
                     console.error('Error:', error);
                 });
         }
+    </script>
+    <script>
+        const lastModified = new Date(document.lastModified);
+        document.getElementById("lastModified").innerHTML = "Last edited: " + lastModified;
     </script>
 </body>
 </html>

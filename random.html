@@ -4,8 +4,11 @@
     <h1>Hello World</h1>
     <h2>Wow this is a random page.</h2>
     <p>I'm hosted with GitHub Pages.</p>
-    <p>convert the last modified property into a date object:</p>
-    <p id="demo"></p>
-    <script>const date = new Date(document.lastModified);document.getElementById("demo").innerHTML=date;</script>
+    <p>convert the last modified property into a date object:</p><br>
+    <p id="lastModified"></p>
+    <script>
+        const lastModified = new Date(document.lastModified);
+        document.getElementById("lastModified").innerHTML = "Last edited: " + lastModified;
+    </script>
 </body>
 </html>
