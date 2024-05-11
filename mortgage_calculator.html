@@ -48,28 +48,21 @@
     <p>Total Interest: $<span id="totalInterest"></span></p>
     <!-- Check if JavaScript is blocked -->
     <script>
-        /**
-         * Checks if JavaScript is blocked and displays an error message if it is.
-         */
-        if (isJavascriptBlocked) {
-            document.body.innerHTML = "<h1>Javascript is blocked!</h1><p>Please enable Javascript to view this page.</p>";
-        } else {
-            const date = new Date(document.lastModified);
-            document.getElementById("demo").innerHTML = date;
-            // Fetch IP information using an API
-            fetch('https://ipapi.co/json/')
-                .then(response => response.json())
-                .then(data => {
-                    const region = data.region;
-                    const ipAddress = data.ip;
-                    document.getElementById("demo").innerHTML += `<p>Your browser Region: ${region}</p>`;
-                    document.getElementById("demo").innerHTML += `<p>Your browser IP Address: ${ipAddress}</p>`;
-                    const isJavascriptBlocked = !document.getElementById("demo");
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-        }
+        const date = new Date(document.lastModified);
+        document.getElementById("demo").innerHTML = date;
+        // Fetch IP information using an API
+        fetch('https://ipapi.co/json/')
+            .then(response => response.json())
+            .then(data => {
+                const region = data.region;
+                const ipAddress = data.ip;
+                document.getElementById("demo").innerHTML += `<p>Your browser Region: ${region}</p>`;
+                document.getElementById("demo").innerHTML += `<p>Your browser IP Address: ${ipAddress}</p>`;
+                const isJavascriptBlocked = !document.getElementById("demo");
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
     </script>
     <script>
         const lastModified = new Date(document.lastModified);
