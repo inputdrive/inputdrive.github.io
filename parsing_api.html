@@ -11,8 +11,10 @@
     <script>
         $(document).ready(function() {
             $.getJSON("https://ipapi.co/json/", function(data) {
-                var output = JSON.stringify(data, null, 2);
-                $("#data").text(output);
+                var output = "<h2>Name: " + data.name + "</h2>";
+                output += "<p>Data: " + JSON.stringify(data, null, 2) + "</p>";
+                $("#data").html(output);
+                $("#data").css("text-align", "center");
             });
         });
     </script>
