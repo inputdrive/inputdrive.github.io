@@ -23,13 +23,26 @@
     <h1>Hello World</h1>
     <h2>Wow this is easy.</h2>
     <h3>how about </h3>
-    <a href="/random.html">relatively random page</a>
+    <a href="/random.html">Go to Random page</a>
+    <a href="/mortgage_calculator.html">Go to Mortgage Calculator</a>
     <p>I'm hosted with GitHub Pages.</p>
     <p>convert the last modified property into a date object:</p>
     <p id="demo"></p>
     <script>
         const date = new Date(document.lastModified);
         document.getElementById("demo").innerHTML = date;
+        fetch('https://ipapi.co/json/')
+            .then(response => response.json())
+            .then(data => {
+                const region = data.region;
+                const ipAddress = data.ip;
+
+                document.getElementById("demo").innerHTML += `<p>Region: ${region}</p>`;
+                document.getElementById("demo").innerHTML += `<p>IP Address: ${ipAddress}</p>`;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
     </script>
 </body>
 </html>
