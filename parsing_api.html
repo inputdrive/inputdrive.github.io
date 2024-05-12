@@ -22,18 +22,6 @@
                 initMap(latitude, longitude);
             });
         });
-        <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
-                function initMap(latitude, longitude) {
-                    var location = { lat: latitude, lng: longitude };
-                    var map = new google.maps.Map(document.getElementById("map"), {
-                        center: location,
-                        zoom: 10
-                    });
-                    var marker = new google.maps.Marker({
-                        position: location,
-                        map: map
-                    });
-                }
     </script>
     <p id="lastModified"></p>
     <script>
