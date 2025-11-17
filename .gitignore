@@ -1,1 +1,145 @@
+# ============================================================================
+# IDE and Editor Files
+# ============================================================================
+# CWE-427: Uncontrolled Search Path Element
+# CWE-693: Protection Mechanism Failure
 .vs/
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+.env.local
+.env.*.local
+
+# ============================================================================
+# Environment and Configuration Files
+# CWE-798: Use of Hard-Coded Credentials
+# CWE-426: Untrusted Search Path
+# ============================================================================
+.env
+.env.development
+.env.test
+.env.production
+*.pem
+*.key
+*.p12
+*.pfx
+config/secrets.js
+config/secrets.json
+secrets.json
+.credentials
+.aws/credentials
+.ssh/
+
+# ============================================================================
+# Node.js and Package Management
+# CWE-426: Untrusted Search Path
+# ============================================================================
+node_modules/
+npm-debug.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.eslintcache
+package-lock.json
+yarn.lock
+
+# ============================================================================
+# Build and Distribution Artifacts
+# CWE-427: Uncontrolled Search Path Element
+# ============================================================================
+dist/
+build/
+out/
+*.bundle.js
+*.min.js
+*.min.css
+
+# ============================================================================
+# Sensitive Debug and Log Information
+# CWE-215: Information Exposure Through Debug Information
+# CWE-532: Insertion of Sensitive Information into Log File
+# ============================================================================
+*.log
+*.log.*
+logs/
+debug/
+*.stackdump
+.cache
+
+# ============================================================================
+# Temporary and Cache Files
+# CWE-434: Unrestricted Upload of File with Dangerous Type
+# ============================================================================
+tmp/
+temp/
+*.tmp
+.cache/
+.next/
+.nuxt/
+
+# ============================================================================
+# OS-Specific Files
+# CWE-426: Untrusted Search Path
+# ============================================================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# ============================================================================
+# IDE-Specific Directories
+# CWE-693: Protection Mechanism Failure
+# ============================================================================
+.sublime-project
+.sublime-workspace
+*.iml
+.classpath
+.project
+.c9/
+*.launch
+.settings/
+
+# ============================================================================
+# Secrets Management and API Keys
+# CWE-798: Use of Hard-Coded Credentials
+# CWE-321: Use of Hard-Coded Cryptographic Key
+# ============================================================================
+*secret*
+*private*
+*token*
+*api_key*
+*apikey*
+.token
+.pat
+.oauth
+
+# ============================================================================
+# Database and Data Files
+# CWE-434: Unrestricted Upload of File with Dangerous Type
+# ============================================================================
+*.db
+*.sqlite
+*.sqlite3
+*.postgres
+.mysql_history
+data/
+dump.sql
+
+# ============================================================================
+# Backup Files
+# CWE-434: Unrestricted Upload of File with Dangerous Type
+# ============================================================================
+*.backup
+*.bak
+*.old
+*.orig
+*.swp
