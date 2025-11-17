@@ -1,24 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Personal GitHub Pages site containing small demos, utilities, and examples.">
     <title>InputDrive via Github Pages</title>
     <link rel="stylesheet" href="stylesheet.css">
 </head>
 <body>
-    <h1>Hello World!</h1>
-    <h2>Wow this is easy.</h2>
-    <h3>How about some html and javascript pages: </h3>
-    <h4>Click on the links below to navigate to different pages:</h4><br>
-    <a href="/random.html">Go to Random page</a><br>
-    <a href="/mortgage_calculator.html">Go to Mortgage Calculator</a><br>
-    <a href="/mortgage_calculator_advanced.html">Go to Mortgage Calculator Advanced</a><br>
-    <a href="/parsing_api.html">Go to Parsing API</a><br>
-    <p>This is a simple HTML page with some CSS styling.</p>
-    <p>This site is hosted with GitHub Pages.</p><br>
-    <p>consider using sdnjs.com <a href="https://cdnjs.com/">"ultra-fast, reliable, globally available content delivery network for open-source libraries"</a></p>
-    <p id="demo"></p>
+    <header style="background:#fff;border-bottom:1px solid #e6e6e6;padding:12px 16px;">
+        <div style="max-width:900px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;">
+            <strong>InputDrive</strong>
+            <nav style="font-size:0.95rem"><a href="/inputdrive.github.io/index.html">Home</a></nav>
+        </div>
+    </header>
+
+    <main style="max-width:900px;margin:28px auto;padding:0 16px;line-height:1.6;color:#111;">
+        <h1>Hello — InputDrive</h1>
+        <p>Small demos, calculators, and examples hosted in this repository.</p>
+
+        <h2>Pages in this site</h2>
+        <ul>
+            <li><a href="/inputdrive.github.io/random.html">Random Test Page</a></li>
+            <li><a href="/inputdrive.github.io/basic.html">Basic Skeleton</a></li>
+            <li><a href="/inputdrive.github.io/parsing_api.html">IP API Data Parser</a></li>
+            <li><a href="/inputdrive.github.io/mortgage_calculator.html">Mortgage Calculator</a></li>
+            <li><a href="/inputdrive.github.io/mortgage_calculator_advanced.html">Mortgage Calculator Advanced</a></li>
+            <li><a href="/inputdrive.github.io/buyme.html">Support / Buy Me A Coffee</a></li>
+            <li><a href="/inputdrive.github.io/skeleton.html">OWASP / Skeleton</a></li>
+            <li><a href="/inputdrive.github.io/AdBlockerTestPage.html">Ad Blocker Test (site)</a></li>
+        </ul>
+
+        <h2>Other repo pages</h2>
+        <ul>
+            <li><a href="/gpt5_basic_page.html">gpt5_basic_page.html</a></li>
+            <li><a href="/gpt5_basic_page_v2.html">gpt5_basic_page_v2.html</a></li>
+            <li><a href="/AdBlockerTestPage.html">Ad Blocker Test (root)</a></li>
+            <li><a href="/MultiSymbolStockTracker/files/frontend/index.html">Stock Tracker (SPA)</a></li>
+        </ul>
+
+        <p>Preview this site locally with:</p>
+        <pre style="background:#f6f6f6;padding:8px;border-radius:6px;">python3 -m http.server 8000</pre>
+
+        <p id="demo"></p>
     <script>
         const date = new Date(document.lastModified);
         document.getElementById("demo").innerHTML = date;

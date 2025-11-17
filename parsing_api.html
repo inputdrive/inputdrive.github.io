@@ -1,15 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Simple IP API data parser demo that shows location information retrieved from ipapi.co.">
     <title>IP API Data Parser</title>
     <link rel="stylesheet" href="stylesheet.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <h1>IP API Data Parser</h1>
-    <div id="data"></div>
+    <header style="background:#fff;border-bottom:1px solid #e6e6e6;padding:12px 16px;">
+        <div style="max-width:900px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;">
+            <strong>InputDrive</strong>
+            <nav><a href="/inputdrive.github.io/index.html">Index</a></nav>
+        </div>
+    </header>
+
+    <main style="max-width:900px;margin:28px auto;padding:0 16px;">
+        <h1>IP API Data Parser</h1>
+        <div id="data"></div>
     <script>
         $(document).ready(function() {
             $.getJSON("https://ipapi.co/json/", function(data) {
@@ -28,7 +37,12 @@
         const lastModified = new Date(document.lastModified);
         document.getElementById("lastModified").innerHTML = "Page last edited: " + lastModified;
     </script>
-    <div id="map"></div><br>
-    <a href="/index.html">Go to Home page</a><br>
+        <div id="map"></div>
+        <p><a href="/inputdrive.github.io/index.html">Back to Index</a></p>
+    </main>
+
+    <footer style="border-top:1px solid #eee;padding:14px 0;text-align:center;color:#666;margin-top:28px;">
+        <div style="max-width:900px;margin:0 auto;">© 2025 InputDrive</div>
+    </footer>
 </body>
 </html>

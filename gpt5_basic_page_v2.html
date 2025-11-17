@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Example Site – Clean, Policy-Friendly, AdSense-Ready</title>
+  <meta name="description" content="A lightweight, mobile-first, Google AdSense–ready template that follows common policy and UX best practices." />
+  <link rel="canonical" href="https://www.example.com/" />
+  <meta name="robots" content="index,follow" />
+
+  <!-- Open Graph / Twitter (optional but good for quality signals) -->
+  <meta property="og:title" content="Example Site – Clean, Policy-Friendly, AdSense-Ready" />
+  <meta property="og:description" content="A lightweight, mobile-first, Google AdSense–ready template that follows common policy and UX best practices." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.example.com/" />
+  <meta property="og:image" content="https://www.example.com/og-image.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Minimal CSS: fast, accessible, mobile-first -->
+  <style>
+    :root {
+      --bg: #0b0d10;        /* Dark background for easy contrast */
+      --card: #12161c;
+      --text: #e6edf3;
+      --muted: #9fb1c1;
+      --accent: #4f9ef8;
+      --success: #40c057;
+      --warning: #f59f00;
+      --danger: #fa5252;
+      --radius: 16px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0; font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    header {
+      position: sticky; top: 0; z-index: 40; backdrop-filter: saturate(1.2) blur(8px);
+      background: rgba(11,13,16,.75); border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 16px; }
+    .nav { display: flex; align-items: center; gap: 20px; }
+    .brand { font-weight: 800; letter-spacing: .3px; }
+
+    .hero { padding: 36px 0 8px; }
+    .grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+    @media (min-width: 900px) {
+      .grid { grid-template-columns: minmax(0, 1fr) 340px; }
+    }
+
+    .card { background: var(--card); border: 1px solid rgba(255,255,255,.06); border-radius: var(--radius); box-shadow: var(--shadow); }
+    .card > * { padding: 16px; }
+
+    .article h1 { font-size: clamp(24px, 3vw, 34px); margin: 0 0 8px; }
+    .article h2 { font-size: 20px; margin: 24px 0 8px; }
+    .article p { margin: 0 0 16px; }
+    .muted { color: var(--muted); }
+    .kbd { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12); border-radius: 6px; padding: 2px 6px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+
+    /* Ad containers: reserve space to reduce CLS (layout shift) */
+    .ad-container { background: rgba(255,255,255,.03); border: 1px dashed rgba(255,255,255,.12); border-radius: 12px; display: block; overflow: hidden; }
+    .ad--leader { min-height: 90px; }     /* Typical 728x90 / 970x90 desktop; will be shorter on mobile */
+    .ad--inarticle { min-height: 300px; } /* Responsive rectangle */
+
+    footer { margin: 32px 0 80px; color: var(--muted); }
+    footer a { color: inherit; text-decoration: underline; }
+
+    /* Cookie/consent banner */
+    .consent {
+      position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 50;
+      display: none; gap: 12px; align-items: center; padding: 14px 16px;
+      background: #0e1318; color: var(--text); border: 1px solid rgba(255,255,255,.12);
+      border-radius: 14px; box-shadow: var(--shadow);
+    }
+    .consent.show { display: flex; }
+    .consent button { cursor: pointer; border: 0; border-radius: 10px; padding: 10px 14px; font-weight: 700; }
+    .consent .accept { background: var(--success); color: #08120a; }
+    .consent .decline { background: #243244; color: #cfe1f3; }
+  </style>
+
+  <!--
+    CONSENT HANDLING (lightweight demo)
+    If user declines, set non-personalized ads. In production, a full CMP or Consent Mode v2 is recommended.
+  -->
+  <script>
+    (function(){
+      function get(name){
+        return document.cookie.split('; ').find(r=>r.startsWith(name+'='))?.split('=')[1];
+      }
+      var consent = get('site_consent');
+      if(consent === 'declined'){
+        // Tell AdSense to request non-personalized ads
+        window.adsbygoogle = window.adsbygoogle || {};
+        window.adsbygoogle.requestNonPersonalizedAds = 1;
+      }
+    })();
+  </script>
+
+  <!-- AdSense loader (replace ca-pub-XXXXXXXXXXXXXXXX with your publisher ID).
+       Do not add this script until your account is approved and your site is ready. -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Example Site",
+    "url": "https://www.example.com/",
+    "publisher": {"@type": "Organization", "name": "Example LLC"}
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="brand" aria-label="Site name">Example Site</div>
+        <a href="/inputdrive.github.io/index.html" style="color:var(--muted);font-size:0.95rem;text-decoration:none;">Index</a>
+      </div>
+      <nav aria-label="Primary">
+        <a href="#content">Articles</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a href="#privacy">Privacy</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="content" class="wrap hero">
+    <div class="grid">
+      <article class="card article" aria-labelledby="post-title">
+        <div>
+          <h1 id="post-title">A Practical Starter Template for an AdSense‑Ready Site</h1>
+          <p class="muted">By Alex Example • Updated <time datetime="2025-09-01">September 1, 2025</time></p>
+        </div>
+
+        <!-- Top Leaderboard (responsive) -->
+        <div class="ad-container ad--leader" role="complementary" aria-label="advertisement">
+          <!-- Replace data-ad-client and data-ad-slot with your values -->
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="1111111111"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <h2>What makes a page acceptable?</h2>
+        <p>
+          Google looks for original, valuable content, a good user experience, and compliance with policies.
+          This template keeps layout shifts low, loads fast, and includes clear navigation and site policies.
+        </p>
+
+        <p>
+          Avoid intrusive UX patterns: auto‑refreshing pages, misleading labels, or placing ads where users are likely to mis‑tap.
+          Keep ad density reasonable—especially on mobile—and don’t hide content behind ads.
+        </p>
+
+        <!-- In-article section before second ad -->
+        <h2>Performance & UX basics</h2>
+        <ul>
+          <li>Fast load times (light CSS, no heavy frameworks).</li>
+          <li>Accessible markup (labels, landmarks, good contrast).</li>
+          <li>Responsive, mobile‑first layout.</li>
+          <li>Clear navigation and policy pages/sections.</li>
+        </ul>
+
+        <!-- In-Article Ad (responsive rectangle) -->
+        <div class="ad-container ad--inarticle" role="complementary" aria-label="advertisement">
+          <!-- Replace data-ad-client and data-ad-slot with your values -->
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="2222222222"
+               data-ad-format="fluid"
+               data-ad-layout-key="-gw-3+1f-3d+2z"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+        <h2>Content quality</h2>
+        <p>
+          Publish original writing, add images you own or have rights to use, and avoid scraped or auto‑generated text.
+          Keep topics safe for ads: no adult, illegal, hateful, or shocking content.
+        </p>
+
+        <h2 id="about">About</h2>
+        <p>
+          Example Site is a demo showing clean structure and ad placements without clutter.
+          Swap this text for your mission statement and real author bio.
+        </p>
+
+        <h2 id="contact">Contact</h2>
+        <p>Questions? Email <a href="mailto:hello@example.com">hello@example.com</a>.</p>
+
+        <h2 id="privacy">Privacy Policy</h2>
+        <p>
+          We use cookies to improve the site and to serve ads. Third‑party vendors, including Google, use cookies to serve ads based on past visits. Google’s use of advertising cookies enables it and its partners to serve ads based on your visits to this and/or other sites. You can opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" rel="nofollow">Ads Settings</a>.
+        </p>
+        <p>
+          If you decline consent below, we request non‑personalized ads. Read more in Google’s policies and your browser’s privacy controls.
+        </p>
+      </article>
+
+      <aside class="card" aria-label="Sidebar">
+        <div>
+          <h3>Latest Articles</h3>
+          <ul>
+            <li><a href="#">How to speed up your site responsibly</a></li>
+            <li><a href="#">Understanding responsive ad units</a></li>
+            <li><a href="#">Consent Mode v2: a gentle intro</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Disclosure</h3>
+          <p class="muted">This website may earn revenue from ads. Content is editorially independent.</p>
+        </div>
+
+        <!-- Sidebar ad (optional, avoid stacking too many ads on mobile) -->
+        <div class="ad-container ad--inarticle" role="complementary" aria-label="advertisement">
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="3333333333"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+      </aside>
+    </div>
+
+    <footer class="wrap">
+      <p>
+        © <span id="year"></span> Example LLC • <a href="#privacy">Privacy</a> • <a href="#contact">Contact</a>
+      </p>
+      <p>
+        Tip: Add an <span class="kbd">ads.txt</span> file at <span class="kbd">https://yourdomain.com/ads.txt</span> with this line (replace with your pub ID):
+        <br>
+        <code>google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0</code>
+      </p>
+    </footer>
+  </main>
+
+  <!-- Simple cookie/consent banner (demo) -->
+  <div class="consent" id="consent">
+    <div style="flex:1; min-width: 200px;">
+      We use cookies for analytics and to serve ads. Choose your preference.
+    </div>
+    <div style="display:flex; gap:8px;">
+      <button class="decline" id="btn-decline" aria-label="Decline personalized ads">Decline</button>
+      <button class="accept" id="btn-accept" aria-label="Accept personalized ads">Accept</button>
+    </div>
+  </div>
+
+  <script>
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Consent banner logic (very light demo; for production, use a CMP compatible with IAB TCF, if needed).
+    (function(){
+      var el = document.getElementById('consent');
+      var cookie = document.cookie.split('; ').find(r => r.startsWith('site_consent='))?.split('=')[1];
+      if(!cookie){ el.classList.add('show'); }
+
+      function setConsent(val){
+        var d = new Date(); d.setFullYear(d.getFullYear()+1);
+        document.cookie = 'site_consent=' + val + '; path=/; expires=' + d.toUTCString() + '; SameSite=Lax';
+      }
+      document.getElementById('btn-accept').addEventListener('click', function(){
+        setConsent('accepted');
+        // Allow personalized ads (default). Reload to apply if needed.
+        el.classList.remove('show');
+      });
+      document.getElementById('btn-decline').addEventListener('click', function(){
+        setConsent('declined');
+        // Request non‑personalized ads next loads
+        window.adsbygoogle = window.adsbygoogle || {};
+        window.adsbygoogle.requestNonPersonalizedAds = 1;
+        el.classList.remove('show');
+      });
+    })();
+  </script>
+</body>
+</html>
