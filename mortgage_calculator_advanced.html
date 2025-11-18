@@ -11,22 +11,42 @@
             var loanAmount = parseFloat(document.getElementById("loanAmount").value);
             var interestRate = parseFloat(document.getElementById("interestRate").value);
             var periodYears = parseFloat(document.getElementById("periodYears").value);
-            var additionalPayment = parseFloat(document.getElementById("additionalPayment").value);
+            var additionalPayment = parseFloat(document.getElementById("additionalPayment").value) || 0;
 
             var monthlyInterestRate = interestRate / 100 / 12;
             var totalMonths = periodYears * 12;
 
+            // Calculate base monthly payment (amortization formula)
             var monthlyPayment = (loanAmount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -totalMonths));
+            
+            // Calculate total payment without extra payments
             var totalPayment = monthlyPayment * totalMonths;
-            var totalSavings = (monthlyPayment + additionalPayment) * totalMonths - loanAmount;
+            var totalInterest = totalPayment - loanAmount;
+            
+            // Calculate actual total interest WITH extra payments
+            // (extra payments reduce the total amount of interest paid)
+            var totalWithExtraPayments = (monthlyPayment + additionalPayment) * totalMonths;
+            var interestSavedFromExtra = 0;
+            
+            if (additionalPayment > 0) {
+                // With extra payments, total paid is less
+                interestSavedFromExtra = totalPayment - (totalWithExtraPayments - loanAmount);
+            }
 
-            var result = "Loan Amount: $" + loanAmount.toFixed(2) + "<br>";
-            result += "Interest Rate: " + interestRate.toFixed(2) + "%<br>";
-            result += "Loan Period: " + periodYears.toFixed(2) + " years<br>";
-            result += "Additional Payment: $" + additionalPayment.toFixed(2) + "<br>";
-            result += "Monthly Payment: $" + monthlyPayment.toFixed(2) + "<br>";
-            result += "Total Payment: $" + totalPayment.toFixed(2) + "<br>";
-            result += "Total Savings: $" + totalSavings.toFixed(2) + "<br>";
+            var result = "<table style='width:100%;border-collapse:collapse;'>";
+            result += "<tr style='border-bottom:1px solid #ddd;'><td><strong>Loan Amount:</strong></td><td style='text-align:right;'>$" + loanAmount.toFixed(2) + "</td></tr>";
+            result += "<tr style='border-bottom:1px solid #ddd;'><td><strong>Annual Interest Rate:</strong></td><td style='text-align:right;'>" + interestRate.toFixed(2) + "%</td></tr>";
+            result += "<tr style='border-bottom:1px solid #ddd;'><td><strong>Loan Period:</strong></td><td style='text-align:right;'>" + periodYears.toFixed(2) + " years</td></tr>";
+            result += "<tr style='border-bottom:2px solid #333;'><td><strong>Base Monthly Payment:</strong></td><td style='text-align:right;'><strong>$" + monthlyPayment.toFixed(2) + "</strong></td></tr>";
+            
+            result += "<tr style='border-bottom:1px solid #ddd;'><td><strong>Additional Monthly Payment:</strong></td><td style='text-align:right;'>$" + additionalPayment.toFixed(2) + "</td></tr>";
+            result += "<tr style='border-bottom:1px solid #ddd;'><td><strong>Total Monthly Payment:</strong></td><td style='text-align:right;'><strong>$" + (monthlyPayment + additionalPayment).toFixed(2) + "</strong></td></tr>";
+            result += "<tr style='border-bottom:2px solid #333;'><td><strong>Total Amount Paid:</strong></td><td style='text-align:right;'><strong>$" + totalWithExtraPayments.toFixed(2) + "</strong></td></tr>";
+            
+            result += "<tr style='border-bottom:1px solid #ddd;'><td><strong>Total Interest (without extra payments):</strong></td><td style='text-align:right;'>$" + totalInterest.toFixed(2) + "</td></tr>";
+            result += "<tr style='border-bottom:1px solid #ddd;'><td><strong>Interest Saved by Extra Payments:</strong></td><td style='text-align:right;color:green;'><strong>$" + interestSavedFromExtra.toFixed(2) + "</strong></td></tr>";
+            result += "<tr><td><strong>Net Total Interest Paid:</strong></td><td style='text-align:right;'><strong>$" + (totalInterest - interestSavedFromExtra).toFixed(2) + "</strong></td></tr>";
+            result += "</table>";
 
             document.getElementById("result").innerHTML = result;
         }
@@ -42,18 +62,61 @@
 
     <main style="max-width:900px;margin:28px auto;padding:0 16px;">
         <h1>Mortgage Calculator Advanced</h1>
-    <label for="loanAmount">Loan Amount:</label>
-    <input type="number" id="loanAmount"><br>
-    <label for="interestRate">Interest Rate (%):</label>
-    <input type="number" id="interestRate"><br>
-    <label for="periodYears">Loan Period (in years):</label>
-    <input type="number" id="periodYears"><br>
-    <label for="additionalPayment">Additional Payment (optional):</label>
-    <input type="number" id="additionalPayment"><br>
-    <button onclick="calculateLoan()">Calculate</button>
-    <div id="result"></div>
-    <button onclick="window.print()">Print</button>
-    <p id="lastModified"></p>
+        <p>Explore how extra monthly payments can reduce interest and shorten your loan. All calculations are performed locally in your browser—no data is sent to any server.</p>
+        
+        <h3>Calculator Inputs:</h3>
+        <ul>
+            <li><strong>Loan Amount:</strong> The principal amount borrowed (in dollars)</li>
+            <li><strong>Annual Interest Rate:</strong> The yearly interest rate as a percentage (e.g., 6.5 for 6.5%)</li>
+            <li><strong>Loan Period:</strong> The total number of years to repay the loan</li>
+            <li><strong>Additional Monthly Payment:</strong> Any extra amount paid each month toward principal (optional)</li>
+        </ul>
+        
+        <label for="loanAmount">Loan Amount ($):</label>
+        <input type="number" id="loanAmount" placeholder="e.g., 300000" required><br>
+        
+        <label for="interestRate">Annual Interest Rate (%):</label>
+        <input type="number" id="interestRate" placeholder="e.g., 6.5" step="0.01" required><br>
+        
+        <label for="periodYears">Loan Period (in years):</label>
+        <input type="number" id="periodYears" placeholder="e.g., 30" required><br>
+        
+        <label for="additionalPayment">Additional Monthly Payment ($) (optional):</label>
+        <input type="number" id="additionalPayment" placeholder="e.g., 200" min="0"><br>
+        
+        <button onclick="calculateLoan()">Calculate</button>
+        <button onclick="window.print()" style="margin-left:8px;">Print Results</button>
+        
+        <h2>Results:</h2>
+        <div id="result" style="margin:20px 0; padding:15px; background:#f9f9f9; border-radius:6px;"></div>
+        
+        <hr style="margin:20px 0; border:none; border-top:1px solid #ddd;">
+        
+        <h3>How Extra Payments Work:</h3>
+        <p>When you pay extra each month, that amount goes directly toward reducing the principal balance. Since interest is calculated on the remaining balance, paying extra:</p>
+        <ul>
+            <li>Reduces the total interest you'll pay over the life of the loan</li>
+            <li>Shortens the time it takes to pay off the loan</li>
+            <li>Builds equity faster in your home</li>
+        </ul>
+        
+        <h3>⚠️ Important Disclaimers:</h3>
+        <ul style="font-size:0.95em; color:#555;">
+            <li><strong>Loan Amount Only:</strong> This calculator estimates payments based solely on the loan principal, interest rate, and term. It does NOT include:</li>
+            <ul style="margin-top:8px;">
+                <li>Property taxes</li>
+                <li>Homeowners insurance</li>
+                <li>HOA fees</li>
+                <li>PMI (Private Mortgage Insurance)</li>
+                <li>Origination fees, closing costs, or points</li>
+                <li>Prepayment penalties or other adjustments</li>
+            </ul>
+            <li><strong>Not Financial Advice:</strong> This tool is for educational estimation purposes only. It is not professional financial, tax, or legal advice. Always consult with a qualified mortgage lender, financial advisor, or tax professional for accurate loan quotes and personalized recommendations.</li>
+            <li><strong>Accuracy:</strong> Results are approximate. Actual payments may vary based on your lender's terms, fees, and market conditions.</li>
+            <li><strong>Extra Payments:</strong> Some lenders may impose prepayment penalties. Check your loan documents before making extra payments.</li>
+        </ul>
+        
+        <p id="lastModified"></p>
     <script>
         const lastModified = new Date(document.lastModified);
         document.getElementById("lastModified").innerHTML = "Page last edited: " + lastModified;

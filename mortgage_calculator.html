@@ -41,26 +41,51 @@
 
     <main style="max-width:900px;margin:28px auto;padding:0 16px;">
         <h1>Mortgage Calculator</h1>
-        <p>All calculations are performed on the user's browser using JavaScript. No data is stored or transmitted back to the server. This ensures the privacy and security of your information.</p>
-    <form>
-        <label for="loanAmount">Loan Amount:</label>
-        <input type="number" id="loanAmount" required><br>
+        <p>Estimate your monthly mortgage payment based on loan amount, annual interest rate, and loan term. All calculations are performed locally in your browser—no data is sent to any server.</p>
+        
+        <h3>Calculator Inputs:</h3>
+        <ul>
+            <li><strong>Loan Amount:</strong> The principal amount borrowed (in dollars)</li>
+            <li><strong>Annual Interest Rate:</strong> The yearly interest rate as a percentage (e.g., 6.5 for 6.5%)</li>
+            <li><strong>Loan Term:</strong> The total number of years to repay the loan</li>
+        </ul>
+        
+        <form>
+            <label for="loanAmount">Loan Amount ($):</label>
+            <input type="number" id="loanAmount" placeholder="e.g., 300000" required><br>
 
-        <label for="interestRate">Interest Rate (%):</label>
-        <input type="number" id="interestRate" required><br>
+            <label for="interestRate">Annual Interest Rate (%):</label>
+            <input type="number" id="interestRate" placeholder="e.g., 6.5" step="0.01" required><br>
 
-        <label for="loanTerm">Loan Term (years):</label>
-        <input type="number" id="loanTerm" required><br>
+            <label for="loanTerm">Loan Term (years):</label>
+            <input type="number" id="loanTerm" placeholder="e.g., 30" required><br>
 
-        <button type="button" onclick="calculateMortgage()">Calculate</button>
-    </form>
+            <button type="button" onclick="calculateMortgage()">Calculate</button>
+        </form>
 
-    <h2>Result:</h2>
-    <p>Monthly Payment: $<span id="monthlyPayment"></span></p>
-    <p>Total Payment: $<span id="totalPayment"></span></p>
-    <p>Total Interest: $<span id="totalInterest"></span></p>
-    
-    <p id="lastModified"></p>
+        <h2>Estimated Monthly Payment:</h2>
+        <p><strong>Monthly Payment: $<span id="monthlyPayment">—</span></strong></p>
+        <p>Total Amount Paid: $<span id="totalPayment">—</span></p>
+        <p>Total Interest Paid: $<span id="totalInterest">—</span></p>
+        
+        <hr style="margin:20px 0; border:none; border-top:1px solid #ddd;">
+        
+        <h3>⚠️ Important Disclaimers:</h3>
+        <ul style="font-size:0.95em; color:#555;">
+            <li><strong>Loan Amount Only:</strong> This calculator estimates payments based solely on the loan principal, interest rate, and term. It does NOT include:</li>
+            <ul style="margin-top:8px;">
+                <li>Property taxes</li>
+                <li>Homeowners insurance</li>
+                <li>HOA fees</li>
+                <li>PMI (Private Mortgage Insurance)</li>
+                <li>Origination fees, closing costs, or points</li>
+                <li>Prepayment penalties or other adjustments</li>
+            </ul>
+            <li><strong>Not Financial Advice:</strong> This tool is for educational estimation purposes only. It is not professional financial, tax, or legal advice. Always consult with a qualified mortgage lender, financial advisor, or tax professional for accurate loan quotes and personalized recommendations.</li>
+            <li><strong>Accuracy:</strong> Results are approximate. Actual payments may vary based on your lender's terms, fees, and market conditions.</li>
+        </ul>
+        
+        <p id="lastModified"></p>
     <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="inputdrive22" data-color="#5F7FFF" data-emoji="😉"  data-font="Bree" data-text="Buy me a coffee OR tea?" data-outline-color="#000000" data-font-color="#ffffff" data-coffee-color="#FFDD00" ></script>
     <p><a href="/inputdrive.github.io/index.html">Back to Index</a></p>
     </main>
