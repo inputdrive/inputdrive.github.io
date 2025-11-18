@@ -21,48 +21,44 @@
 
         <h2>Pages in this site</h2>
         <ul>
-            <li><a href="/inputdrive.github.io/random.html">Random Test Page</a></li>
-            <li><a href="/inputdrive.github.io/basic.html">Basic Skeleton</a></li>
-            <li><a href="/inputdrive.github.io/parsing_api.html">IP API Data Parser</a></li>
-            <li><a href="/inputdrive.github.io/mortgage_calculator.html">Mortgage Calculator</a></li>
-            <li><a href="/inputdrive.github.io/mortgage_calculator_advanced.html">Mortgage Calculator Advanced</a></li>
-            <li><a href="/inputdrive.github.io/buyme.html">Support / Buy Me A Coffee</a></li>
-            <li><a href="/inputdrive.github.io/skeleton.html">OWASP / Skeleton</a></li>
-            <li><a href="/inputdrive.github.io/AdBlockerTestPage.html">Ad Blocker Test (site)</a></li>
-        </ul>
-
-        <h2>Other repo pages</h2>
-        <ul>
-            <li><a href="/gpt5_basic_page.html">gpt5_basic_page.html</a></li>
-            <li><a href="/gpt5_basic_page_v2.html">gpt5_basic_page_v2.html</a></li>
-            <li><a href="/AdBlockerTestPage.html">Ad Blocker Test (root)</a></li>
-            <li><a href="/MultiSymbolStockTracker/files/frontend/index.html">Stock Tracker (SPA)</a></li>
+            <li><a href="/inputdrive.github.io/random.html">Random Test Page</a> — A simple test page with dynamic last-modified timestamp.</li>
+            <li><a href="/inputdrive.github.io/basic.html">Basic Skeleton</a> — HTML skeleton template for building new pages and experiments.</li>
+            <li><a href="/inputdrive.github.io/parsing_api.html">IP API Data Parser</a> — Fetches and displays geolocation data from ipapi.co API.</li>
+            <li><a href="/inputdrive.github.io/mortgage_calculator.html">Mortgage Calculator</a> — Client-side mortgage payment calculator with privacy-first processing.</li>
+            <li><a href="/inputdrive.github.io/mortgage_calculator_advanced.html">Mortgage Calculator Advanced</a> — Extended calculator with extra payments and print functionality.</li>
+            <li><a href="/inputdrive.github.io/buyme.html">Support / Buy Me A Coffee</a> — Support the project with a donation via BuyMeACoffee widget.</li>
+            <li><a href="/inputdrive.github.io/skeleton.html">OWASP / Skeleton</a> — OWASP security testing page with multiple library dependencies.</li>
+            <li><a href="/inputdrive.github.io/AdBlockerTestPage.html">Ad Blocker Test</a> — Tests whether ad-blocking browser extensions are working correctly.</li>
+            <li><a href="/inputdrive.github.io/gpt5_basic_page.html">Everyday Gear Reviews</a> — Example blog-style page with AdSense integration and article structure.</li>
+            <li><a href="/inputdrive.github.io/gpt5_basic_page_v2.html">Clean AdSense Template</a> — Dark-mode template demonstrating policy-friendly ad placement patterns.</li>
         </ul>
 
         <p>Preview this site locally with:</p>
         <pre style="background:#f6f6f6;padding:8px;border-radius:6px;">python3 -m http.server 8000</pre>
 
-        <p id="demo"></p>
+        <p id="lastModified"></p>
+    </main>
+
+    <footer style="border-top:1px solid #eee;padding:14px 0;text-align:center;color:#666;margin-top:28px;">
+        <div style="max-width:900px;margin:0 auto;">© 2025 InputDrive</div>
+    </footer>
+
     <script>
-        const date = new Date(document.lastModified);
-        document.getElementById("demo").innerHTML = date;
+        const lastModified = new Date(document.lastModified);
+        document.getElementById("lastModified").innerHTML = "Page last edited: " + lastModified;
+        
         // Fetch IP information using an API
         fetch('https://ipapi.co/json/')
             .then(response => response.json())
             .then(data => {
                 const region = data.region;
                 const ipAddress = data.ip;
-                document.getElementById("demo").innerHTML += `<p>Your browser Region: ${region}</p>`;
-                document.getElementById("demo").innerHTML += `<p>Your browser IP Address: ${ipAddress}</p>`;
-                const isJavascriptBlocked = !document.getElementById("demo");
+                console.log(`Your browser Region: ${region}`);
+                console.log(`Your browser IP Address: ${ipAddress}`);
             })
             .catch(error => {
-                console.error('Error:', error);
+                console.error('Error fetching IP data:', error);
             });
-    </script>
-    <script>
-        const lastModified = new Date(document.lastModified);
-        document.getElementById("lastModified").innerHTML = "Page last edited: " + lastModified;
     </script>
 </body>
 </html>

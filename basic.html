@@ -27,6 +27,12 @@
 
     <footer style="border-top:1px solid #eee;padding:14px 0;text-align:center;color:#666;margin-top:28px;">
         <div style="max-width:900px;margin:0 auto;">© 2025 InputDrive</div>
+        <p id="lastModified" style="color:#666;font-size:0.9rem;margin:4px 0 0;"></p>
     </footer>
+
+    <script>
+        const lastModified = new Date(document.lastModified);
+        document.getElementById("lastModified").innerHTML = "Page last edited: " + lastModified;
+    </script>
 </body>
 </html>
