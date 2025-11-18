@@ -53,26 +53,65 @@
         const lastModified = new Date(document.lastModified);
         document.getElementById("lastModified").innerHTML = "Page last edited: " + lastModified;
         
-        // Fetch IP information using an API
-        fetch('https://ipapi.co/json/')
-            .then(response => response.json())
-            .then(data => {
-                const region = data.region;
-                const ipAddress = data.ip;
-                const city = data.city;
-                const country = data.country_name;
-                
-                // Display on page
-                document.getElementById("ipInfo").innerHTML = `Your location: ${city}, ${region}, ${country} | IP: ${ipAddress}`;
-                
-                // Also log to console
-                console.log(`Your browser Region: ${region}`);
-                console.log(`Your browser IP Address: ${ipAddress}`);
-            })
-            .catch(error => {
-                console.error('Error fetching IP data:', error);
-                document.getElementById("ipInfo").innerHTML = 'Unable to fetch location data';
-            });
+        function tryApi(url, successCallback, errorCallback) {
+            fetch(url, { mode: 'cors' })
+                .then(response => {
+                    if (!response.ok) throw new Error('API error');
+                    return response.json();
+                })
+                .then(data => successCallback(data))
+                .catch(error => errorCallback());
+        }
+        
+        function displayLocationInfo(data) {
+            const city = data.city || "Unknown";
+            const region = data.region || "Unknown";
+            const country = data.country_name || "Unknown";
+            const ipAddress = data.ip || "Unknown";
+            
+            document.getElementById("ipInfo").innerHTML = `Your location: ${city}, ${region}, ${country} | IP: ${ipAddress}`;
+            console.log(`Your browser Region: ${region}`);
+            console.log(`Your browser IP Address: ${ipAddress}`);
+        }
+        
+        // Try primary API: ipapi.co
+        tryApi(
+            "https://ipapi.co/json/",
+            displayLocationInfo,
+            function() {
+                // Fallback to secondary API: ip-api.com
+                tryApi(
+                    "https://ip-api.com/json/",
+                    function(data) {
+                        var mappedData = {
+                            ip: data.query,
+                            city: data.city,
+                            region: data.region,
+                            country_name: data.country
+                        };
+                        displayLocationInfo(mappedData);
+                    },
+                    function() {
+                        // Final fallback: ipwho.is
+                        tryApi(
+                            "https://ipwho.is/",
+                            function(data) {
+                                var mappedData = {
+                                    ip: data.ip,
+                                    city: data.city,
+                                    region: data.region,
+                                    country_name: data.country_name
+                                };
+                                displayLocationInfo(mappedData);
+                            },
+                            function() {
+                                document.getElementById("ipInfo").innerHTML = '<span style="color:#999;">Location lookup unavailable (check ad blocker or privacy settings)</span>';
+                            }
+                        );
+                    }
+                );
+            }
+        );
     </script>
 </body>
 </html>

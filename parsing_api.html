@@ -11,7 +11,6 @@
     <title>IP API Data Parser</title>
     <link rel="stylesheet" href="stylesheet.css">
     <link rel="preconnect" href="https://ipapi.co" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPFLiiHWLe5Hs6WLQo=" crossorigin="anonymous"></script>
 </head>
 <body>
     <header style="background:#fff;border-bottom:1px solid #e6e6e6;padding:12px 16px;">
@@ -23,26 +22,94 @@
 
     <main style="max-width:900px;margin:28px auto;padding:0 16px;">
         <h1>IP API Data Parser</h1>
+        <p style="font-size:0.9rem;color:#666;">Loading location information...</p>
         <div id="data" style="background:#f5f5f5;padding:16px;border-radius:4px;margin:16px 0;"></div>
     <script>
-        $(document).ready(function() {
-            $.getJSON("https://ipapi.co/json/", function(data) {
-                var output = "<h2>Your Location Information</h2>";
-                output += "<table style='width:100%;border-collapse:collapse;'>";
-                output += "<tr><td style='padding:8px;border-bottom:1px solid #ddd;'><strong>IP Address:</strong></td><td style='padding:8px;border-bottom:1px solid #ddd;'>" + data.ip + "</td></tr>";
-                output += "<tr><td style='padding:8px;border-bottom:1px solid #ddd;'><strong>City:</strong></td><td style='padding:8px;border-bottom:1px solid #ddd;'>" + data.city + "</td></tr>";
-                output += "<tr><td style='padding:8px;border-bottom:1px solid #ddd;'><strong>Region:</strong></td><td style='padding:8px;border-bottom:1px solid #ddd;'>" + data.region + "</td></tr>";
-                output += "<tr><td style='padding:8px;border-bottom:1px solid #ddd;'><strong>Country:</strong></td><td style='padding:8px;border-bottom:1px solid #ddd;'>" + data.country_name + "</td></tr>";
-                output += "<tr><td style='padding:8px;border-bottom:1px solid #ddd;'><strong>Latitude:</strong></td><td style='padding:8px;border-bottom:1px solid #ddd;'>" + data.latitude + "</td></tr>";
-                output += "<tr><td style='padding:8px;border-bottom:1px solid #ddd;'><strong>Longitude:</strong></td><td style='padding:8px;border-bottom:1px solid #ddd;'>" + data.longitude + "</td></tr>";
-                output += "<tr><td style='padding:8px;border-bottom:1px solid #ddd;'><strong>Timezone:</strong></td><td style='padding:8px;border-bottom:1px solid #ddd;'>" + data.timezone + "</td></tr>";
-                output += "<tr><td style='padding:8px;'><strong>ISP:</strong></td><td style='padding:8px;'>" + data.org + "</td></tr>";
-                output += "</table>";
-                $("#data").html(output);
-            }).fail(function() {
-                $("#data").html("<p style='color:red;'><strong>Error:</strong> Unable to fetch IP information. Please check your internet connection or try again later.</p>");
-            });
-        });
+        let apiSuccess = false;
+        
+        function displayData(data) {
+            let output = "<h2>Your Location Information</h2>";
+            output += "<table style='width:100%;border-collapse:collapse;'>";
+            output += "<tr><td style='padding:8px;border-bottom:1px solid #ddd;'><strong>IP Address:</strong></td><td style='padding:8px;border-bottom:1px solid #ddd;'>" + (data.ip || "N/A") + "</td></tr>";
+            output += "<tr><td style='padding:8px;border-bottom:1px solid #ddd;'><strong>City:</strong></td><td style='padding:8px;border-bottom:1px solid #ddd;'>" + (data.city || "N/A") + "</td></tr>";
+            output += "<tr><td style='padding:8px;border-bottom:1px solid #ddd;'><strong>Region:</strong></td><td style='padding:8px;border-bottom:1px solid #ddd;'>" + (data.region || "N/A") + "</td></tr>";
+            output += "<tr><td style='padding:8px;border-bottom:1px solid #ddd;'><strong>Country:</strong></td><td style='padding:8px;border-bottom:1px solid #ddd;'>" + (data.country_name || "N/A") + "</td></tr>";
+            output += "<tr><td style='padding:8px;border-bottom:1px solid #ddd;'><strong>Latitude:</strong></td><td style='padding:8px;border-bottom:1px solid #ddd;'>" + (data.latitude || "N/A") + "</td></tr>";
+            output += "<tr><td style='padding:8px;border-bottom:1px solid #ddd;'><strong>Longitude:</strong></td><td style='padding:8px;border-bottom:1px solid #ddd;'>" + (data.longitude || "N/A") + "</td></tr>";
+            output += "<tr><td style='padding:8px;border-bottom:1px solid #ddd;'><strong>Timezone:</strong></td><td style='padding:8px;border-bottom:1px solid #ddd;'>" + (data.timezone || "N/A") + "</td></tr>";
+            output += "<tr><td style='padding:8px;'><strong>ISP:</strong></td><td style='padding:8px;'>" + (data.org || "N/A") + "</td></tr>";
+            output += "</table>";
+            document.getElementById("data").innerHTML = output;
+        }
+        
+        function showError() {
+            document.getElementById("data").innerHTML = "<p style='color:#dc3545;'><strong>⚠️ Error:</strong> Unable to fetch IP information from all available services. This could be due to:</p>" +
+                "<ul style='text-align:left;margin:12px 0;'>" +
+                "<li>Ad blocker or privacy extension blocking geolocation services</li>" +
+                "<li>VPN or proxy blocking API access</li>" +
+                "<li>Network connectivity issue</li>" +
+                "<li>Browser privacy settings restricting cross-origin requests</li>" +
+                "</ul>" +
+                "<p style='font-size:0.9rem;color:#666;'>Try disabling ad blockers or privacy extensions and refreshing the page.</p>";
+        }
+        
+        function tryApi(url, successCallback, errorCallback) {
+            fetch(url, { mode: 'cors' })
+                .then(response => {
+                    if (!response.ok) throw new Error('API error');
+                    return response.json();
+                })
+                .then(data => {
+                    apiSuccess = true;
+                    successCallback(data);
+                })
+                .catch(error => errorCallback());
+        }
+        
+        // Try primary API: ipapi.co
+        tryApi(
+            "https://ipapi.co/json/",
+            displayData,
+            function() {
+                // Fallback to secondary API: ip-api.com
+                tryApi(
+                    "https://ip-api.com/json/",
+                    function(data) {
+                        var mappedData = {
+                            ip: data.query,
+                            city: data.city,
+                            region: data.region,
+                            country_name: data.country,
+                            latitude: data.lat,
+                            longitude: data.lon,
+                            timezone: data.timezone,
+                            org: data.isp
+                        };
+                        displayData(mappedData);
+                    },
+                    function() {
+                        // Final fallback: ipwho.is
+                        tryApi(
+                            "https://ipwho.is/",
+                            function(data) {
+                                var mappedData = {
+                                    ip: data.ip,
+                                    city: data.city,
+                                    region: data.region,
+                                    country_name: data.country_name,
+                                    latitude: data.latitude,
+                                    longitude: data.longitude,
+                                    timezone: data.timezone,
+                                    org: data.connection ? data.connection.isp : "Unknown"
+                                };
+                                displayData(mappedData);
+                            },
+                            showError
+                        );
+                    }
+                );
+            }
+        );
     </script>
     <p id="lastModified"></p>
     <script>
@@ -53,7 +120,7 @@
     </main>
 
     <footer style="border-top:1px solid #eee;padding:14px 0;text-align:center;color:#666;margin-top:28px;">
-        <div style="max-width:900px;margin:0 auto;">© 2025 InputDrive</div>
+        <div style="max-width:900px;margin:0 auto;">© 2025 Input Drive Security</div>
     </footer>
 </body>
 </html>
