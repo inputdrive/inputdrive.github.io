@@ -59,34 +59,19 @@
     <p>Monthly Payment: $<span id="monthlyPayment"></span></p>
     <p>Total Payment: $<span id="totalPayment"></span></p>
     <p>Total Interest: $<span id="totalInterest"></span></p>
-    <script>
-        const date = new Date(document.lastModified);
-        document.getElementById("demo").innerHTML = date;
-        // Fetch IP information using an API
-        fetch('https://ipapi.co/json/')
-            .then(response => response.json())
-            .then(data => {
-                const region = data.region;
-                const ipAddress = data.ip;
-                document.getElementById("demo").innerHTML += `<p>Your browser Region: ${region}</p>`;
-                document.getElementById("demo").innerHTML += `<p>Your browser IP Address: ${ipAddress}</p>`;
-                const isJavascriptBlocked = !document.getElementById("demo");
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    </script>
-    <script>
-        const lastModified = new Date(document.lastModified);
-        document.getElementById("lastModified").innerHTML = "Page last edited: " + lastModified;
-    </script>
-    <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="inputdrive22" data-color="#5F7FFF" data-emoji="😉"  data-font="Bree" data-text="Buy me a coffee OR tea?" data-outline-color="#000000" data-font-color="#ffffff" data-coffee-color="#FFDD00" ></script>
+    
     <p id="lastModified"></p>
+    <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="inputdrive22" data-color="#5F7FFF" data-emoji="😉"  data-font="Bree" data-text="Buy me a coffee OR tea?" data-outline-color="#000000" data-font-color="#ffffff" data-coffee-color="#FFDD00" ></script>
     <p><a href="/inputdrive.github.io/index.html">Back to Index</a></p>
     </main>
 
     <footer style="border-top:1px solid #eee;padding:14px 0;text-align:center;color:#666;margin-top:28px;">
         <div style="max-width:900px;margin:0 auto;">© 2025 InputDrive</div>
     </footer>
+
+    <script>
+        const lastModified = new Date(document.lastModified);
+        document.getElementById("lastModified").innerHTML = "Page last edited: " + lastModified;
+    </script>
 </body>
 </html>
