@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://inputdrivesecurity.us/sitemap.xml
+Sitemap: https://inputdrivesecurity.net/sitemap.xml
+Sitemap: https://inputdrivesecurity.com/sitemap.xml

@@ -1,1 +1,5 @@
-google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
+# Authorized Digital Sellers
+# Add ad network entries here (e.g., Google, Xandr, Magnite)
+
+# Example (remove if not using)
+# google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
