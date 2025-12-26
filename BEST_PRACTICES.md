@@ -244,4 +244,17 @@ Create `.github/workflows/security-headers.yml` or configure via HTML meta tags:
 
 ---
 
+## Fonts & Typography (Implemented)
+
+### ✅ Added Open Sans
+- Added `preconnect` hints and a Google Fonts stylesheet link for **Open Sans** (weights 300/400/600/700) with `display=swap` to reduce FOIT.
+- Updated `stylesheet.css` to use `font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;` and stronger heading weights.
+
+### Recommendations (Optional)
+- **Self-host fonts** to improve privacy and reduce third-party exposure (preferred for security/privacy-conscious sites).
+- **Subset & preload** critical font files to reduce load time for LCP-critical pages. Use `<link rel="preload" as="font" type="font/woff2" crossorigin>` for specific weights.
+- Use `font-display: swap` (already in the Google Fonts link via `&display=swap`) to avoid invisible text.
+- Consider variable fonts or only bundling the weights you actually use to save bytes.
+
+
 Last Updated: November 17, 2025
