@@ -244,6 +244,16 @@ Create `.github/workflows/security-headers.yml` or configure via HTML meta tags:
 
 ---
 
+### Library demo page improvements (implemented)
+- **Deduplicated jQuery** on `skeleton.html` (kept `3.7.1` from CDNJS) and added `defer`, `crossorigin`, and ensured SRI is present on that tag.
+- **Added an auto-populated script manifest** to `skeleton.html` that lists all loaded script URLs and marks which have SRI attributes. This helps non-dev users and auditors see loaded third-party resources at a glance.
+- **Added SRI placeholders** for other CDN scripts; replace `PLACEHOLDER` with the actual integrity hashes (compute via `openssl dgst -sha384 -binary file | openssl base64 -A`).
+
+### Helper scripts
+- `scripts/compute_sri.sh` — shell helper that downloads listed CDN scripts, computes SHA-384 SRI hashes, and patches `skeleton.html` in-place (interactive; review before committing).
+- `scripts/compute_sri.py` — small Python helper to compute and optionally apply SRI for a single URL.
+
+Instructions: Run `./scripts/compute_sri.sh` from repository root; it will prompt for confirmation, compute SRI values and update `skeleton.html`.
 ## Fonts & Typography (Implemented)
 
 ### ✅ Added Open Sans
