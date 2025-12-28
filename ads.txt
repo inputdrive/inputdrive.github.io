@@ -2,4 +2,4 @@
 # Add ad network entries here (e.g., Google, Xandr, Magnite)
 
 # Example (remove if not using)
-# google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
+google.com, pub-5393775575907084, DIRECT, f08c47fec0942fa0
