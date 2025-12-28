@@ -54,7 +54,7 @@
    
    ```html
    <!-- Better -->
-   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.buymeacoffee.com; img-src 'self' https:; style-src 'self' 'unsafe-inline';">
+   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://code.jquery.com; img-src 'self' https:; style-src 'self' 'unsafe-inline';">
    ```
 
 4. **Add X-Frame-Options Header**
@@ -97,7 +97,7 @@
    
    ```html
    <!-- Good -->
-   <script async src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js"></script>
+   <script async src="https://example-cdn.com/widget.min.js"></script>
    
    <!-- Also good for non-blocking -->
    <script defer src="analytics.js"></script>

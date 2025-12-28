@@ -1,0 +1,7 @@
+<svg width="36" height="36" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="logoTitle">
+  <title id="logoTitle">Input Drive Security</title>
+  <rect width="48" height="48" rx="6" fill="#0a74dc"/>
+  <g fill="#fff" font-family="sans-serif" font-weight="700" font-size="18" text-anchor="middle">
+    <text x="50%" y="60%" dominant-baseline="middle">ID</text>
+  </g>
+</svg>
