@@ -1,8 +1,23 @@
 /* TEAM */
-Developer: Input Drive Security
-Website: https://inputdrivesecurity.us
-Contact: security@inputdrivesecurity.us
+Site: Input Drive Security — Small tools, calculators & security resources
+Maintainer: Greg (@greg_inputdrive) — creator & maintainer
+Contact: https://inputdrive.github.io/contact.html
 
-/* SITE */
-Last Updated: 2025-12-05
-Standards: HTML5, CSS3, ES6, RFC9116
+/* TECH */
+Built with: HTML, CSS, Vanilla JS
+Hosting: GitHub Pages
+Analytics: Google Analytics 4 (G-LYXQD92WW5); Ads: AdSense (ca-pub-5393775575907084)
+
+/* ACCESSIBILITY */
+Accessibility: keyboard-focus, ARIA attributes, prefers-color-scheme support
+
+/* LICENSE */
+Code: MIT
+Content: CC-BY-SA 4.0
+
+/* SOURCE & ISSUES */
+Source: https://github.com/inputdrive/inputdrive.github.io
+Report issues: https://github.com/inputdrive/inputdrive.github.io/issues
+
+/* LAST UPDATED */
+Last-Updated: 2025-12-28
