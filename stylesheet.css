@@ -1,15 +1,145 @@
 /* Colorblind-friendly stylesheet */
 
-/* Define color variables */
+/* Design system variables */
 :root {
-    --color-primary: #007bff; /* Blue */
-    --color-secondary: #6c757d; /* Gray */
-    --color-accent: #17a2b8; /* Cyan */
-    --color-success: #28a745; /* Green */
-    --color-danger: #dc3545; /* Red */
-    --color-warning: #ffc107; /* Yellow */
-    --color-info: #17a2b8; /* Cyan */
-    --color-text: #222; /* darker text for contrast */
+    /* Palette */
+    --color-bg: #ffffff;
+    --color-surface: #ffffff;
+    --color-text: #0b1220;
+    --color-muted: #6b7280;
+    --color-primary: #0a74dc; /* Input Drive blue */
+    --color-accent: #0a84ff;
+    --color-success: #28a745;
+    --color-danger: #dc3545;
+    --color-warning: #ffc107;
+
+    /* Layout / scale */
+    --radius: 8px;
+    --shadow: 0 6px 18px rgba(11,18,32,0.08);
+    --card-padding: 16px;
+    --gap: 16px;
+    --transition: 200ms;
+
+    /* UI tokens */
+    --logo-size: 20px;
+}
+
+/* Dark theme variables (applied by [data-theme="dark"]) */
+body[data-theme="dark"] {
+    --color-bg: #0b1220;
+    --color-surface: #081221;
+    --color-text: #e6eef8;
+    --color-muted: #9aa4b2;
+    --shadow: none;
+}
+
+/* Card grid for tools */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--gap);
+    margin-bottom: 24px;
+}
+
+.tool-card {
+    background: var(--color-surface);
+    color: var(--color-text);
+    padding: var(--card-padding);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    transition: transform var(--transition), box-shadow var(--transition);
+    text-decoration: none;
+    border: 1px solid rgba(0,0,0,0.03);
+}
+.tool-card:hover,
+.tool-card:focus,
+.tool-card:focus-visible {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(11,18,32,0.12);
+}
+
+.tool-card:focus-visible {
+    outline: 3px solid rgba(10,116,220,0.18);
+    outline-offset: 2px;
+}
+
+/* Accessible helpers */
+.sr-only {
+    position: absolute !important;
+    height: 1px; width: 1px;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+    white-space: nowrap;
+}
+
+.tool-card .icon {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg,var(--color-primary),var(--color-accent));
+    color: #fff;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.tool-card .meta {
+    flex: 1 1 auto;
+}
+.tool-card h4 {
+    margin: 0 0 6px 0;
+    font-size: 1rem;
+}
+.tool-card p {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 0.95rem;
+}
+
+/* Theme toggle */
+.theme-toggle {
+    background: transparent;
+    border: 1px solid rgba(0,0,0,0.06);
+    padding: 6px 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+.theme-toggle svg { width: 16px; height: 16px; }
+
+/* Small helpers */
+.small { font-size: 0.9rem; color: var(--color-muted); }
+
+/* Responsive tweaks */
+@media (max-width:600px) {
+    .cards-grid { grid-template-columns: 1fr; gap: 12px; }
+    .tool-card { padding: 12px; }
+    .tool-card .icon { width: 40px; height: 40px; min-width:40px; }
+    .tool-card h4 { font-size: 0.98rem; }
+}
+
+/* Respect user's color-scheme preference for dark mode when no explicit choice */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-text: #e6eef8;
+        --color-primary: #66b0ff;
+        --color-muted: #9aa4b2;
+    }
+    body {
+        background-color: var(--color-bg);
+        color: var(--color-text);
+    }
+    .card {
+        background-color: var(--color-surface);
+        box-shadow: none;
+    }
 }
 
 /* Apply colorblind-friendly styles */
