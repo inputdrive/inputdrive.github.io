@@ -23,6 +23,9 @@
         apply(next);
         localStorage.setItem('site-theme', next);
       });
+
+      // Dispatch an event signaling theme init is complete so other scripts can wait
+      try { document.dispatchEvent(new CustomEvent('site-theme-ready')); } catch(e) { console.warn('Could not dispatch site-theme-ready event'); }
     } catch(e){ console.error(e); }
   }
 

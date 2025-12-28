@@ -189,6 +189,9 @@ h1, h2, h3, h4, h5, h6 {
     .ads-side { display: none; }
     /* Ensure main content uses full width */
     main { margin: 28px 16px; }
+    /* Inline ad style for mobile */
+    .ad-inline { display:block; width:100%; min-height:90px; margin:12px 0; text-align:center; }
+    .ad-inline.ins.adsbygoogle { display:block; }
 }
 
 
