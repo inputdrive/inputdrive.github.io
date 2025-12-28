@@ -3,6 +3,7 @@
 Usage: python3 scripts/compute_sri.py --url <url> --file skeleton.html --apply
 """
 import argparse
+import os
 import hashlib
 import base64
 import sys
@@ -22,7 +23,7 @@ def sri_sha384(data: bytes) -> str:
 
 def patch_file(path: str, url: str, sri: str):
     import re
-    with open(path,'r',encoding='utf-8') as f:
+    with open(os.path.basename(path),'r',encoding='utf-8') as f:
         s = f.read()
     # Replace existing integrity attribute for this src or add it
     pattern = re.compile(r'(<script[^>]*src="%s"[^>]*?)integrity="[^"]*"' % re.escape(url))
