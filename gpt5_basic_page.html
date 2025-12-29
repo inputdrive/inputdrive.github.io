@@ -65,6 +65,7 @@
   </script>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <header role="banner">
     <div class="wrap topbar" aria-label="Site header">
       <div style="display:flex;align-items:center;gap:12px;">
@@ -82,7 +83,7 @@
     </div>
   </header>
 
-  <main id="content" class="wrap" role="main">
+  <main id="main-content" class="wrap" role="main">
     <article aria-labelledby="post-title">
       <section class="card">
         <h1 id="post-title">The Best Budget Wireless Earbuds (Tested)</h1>
@@ -122,12 +123,17 @@
 
   <footer role="contentinfo" style="border-top:1px solid #e5e7eb;padding:14px 0;text-align:center;color:#5c667a;margin-top:28px;">
     <div style="max-width:900px;margin:0 auto;">© 2025 InputDrive</div>
-    <p id="lastModified" style="color:#5c667a;font-size:0.9rem;"></p>
+    <p id="lastModified"><time id="lastModifiedTime" datetime=""></time></p>
   </footer>
 
   <script>
-    const lastModified = new Date(document.lastModified);
-    document.getElementById("lastModified").innerHTML = "Page last edited: " + lastModified;
+    (function updateLastModified(){
+        const timeEl = document.getElementById('lastModifiedTime');
+        if (!timeEl) return;
+        const dt = new Date(document.lastModified || new Date());
+        timeEl.setAttribute('datetime', dt.toISOString());
+        timeEl.textContent = 'Page last edited: ' + dt.toLocaleString();
+    })();
   </script>
 </body>
 </html>

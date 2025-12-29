@@ -7,12 +7,14 @@
 	<meta name="description" content="Support the project or request alternative contribution methods (GitHub Sponsors, PayPal, contact for details).">
 	<link rel="canonical" href="https://inputdrive.github.io/buyme.html">
 	<title>Support — Input Drive</title>
-	<link rel="stylesheet" href="/stylesheet.css" />
+	<link rel="preload" href="/stylesheet.css" as="style" onload="this.rel='stylesheet'">
+	<noscript><link rel="stylesheet" href="/stylesheet.css"></noscript>
 
 	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5393775575907084"
 	     crossorigin="anonymous"></script>
 </head>
 <body>
+	<a href="#main-content" class="skip-link">Skip to main content</a>
 	<header class="site-header">
 		<div class="header-inner">
 			<div style="display:flex;align-items:center;gap:12px;">
@@ -21,24 +23,29 @@
 					<strong>Input Drive Security</strong>
 				</a>
 			</div>
-			<nav style="font-size:0.95rem"><a href="/index.html">Index</a></nav>
+			<nav class="main-nav" aria-label="Main navigation"><a href="/index.html">Index</a></nav>
 		</div>
 	</header>
 
-	<main style="max-width:720px;margin:3rem auto;text-align:center;padding:1rem;">
-		<h1>Support</h1>
+	<main id="main-content" role="main" style="max-width:720px;margin:3rem auto;text-align:center;padding:1rem;">
+		<h1>Support</h1
 		<p>The BuyMeACoffee widget has been removed. If you'd like to support the project, please <a href="/contact.html">contact me</a> for alternatives (GitHub Sponsors, PayPal, or direct contribution).</p>
 		<p><a href="/index.html">Back to Index</a></p>
 	</main>
 
-	<footer style="border-top:1px solid #eee;padding:14px 0;text-align:center;color:#666;margin-top:28px;">
+	<footer class="site-footer">
 		<div style="max-width:900px;margin:0 auto;">© 2025 InputDrive</div>
-		<p id="lastModified" style="color:#666;font-size:0.9rem;margin:4px 0 0;"></p>
+		<p id="lastModified"><time id="lastModifiedTime" datetime=""></time></p>
 	</footer>
 
 	<script>
-		const lastModified = new Date(document.lastModified);
-		document.getElementById("lastModified").innerHTML = "Page last edited: " + lastModified;
+		(function updateLastModified(){
+			const timeEl = document.getElementById('lastModifiedTime');
+			if (!timeEl) return;
+			const dt = new Date(document.lastModified || new Date());
+			timeEl.setAttribute('datetime', dt.toISOString());
+			timeEl.textContent = 'Page last edited: ' + dt.toLocaleString();
+		})();
 	</script>
 </body>
 </html>

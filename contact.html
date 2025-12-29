@@ -7,10 +7,12 @@
 	<meta name="description" content="Contact Input Drive Security for support, sponsorships, or reporting issues.">
 	<link rel="canonical" href="https://inputdrive.github.io/contact.html">
 	<title>Contact — Input Drive</title>
-	<link rel="stylesheet" href="/stylesheet.css" />
+	<link rel="preload" href="/stylesheet.css" as="style" onload="this.rel='stylesheet'">
+	<noscript><link rel="stylesheet" href="/stylesheet.css"></noscript>
 	<script async src="/scripts/analytics.js"></script>
 </head>
 <body>
+	<a href="#main-content" class="skip-link">Skip to main content</a>
 	<header class="site-header">
 		<div class="header-inner">
 			<div style="display:flex;align-items:center;gap:12px;">
@@ -19,7 +21,7 @@
 					<strong>Input Drive Security</strong>
 				</a>
 			</div>
-			<nav style="font-size:0.95rem"><a href="/index.html">Index</a></nav>
+			<nav class="main-nav" aria-label="Main navigation"><a href="/index.html">Index</a></nav>
 		</div>
 	</header>
 
@@ -40,8 +42,8 @@
 		<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 	</aside>
 
-	<main style="max-width:720px;margin:3rem auto;padding:1rem;">
-		<h1>Contact</h1>
+	<main id="main-content" role="main" style="max-width:720px;margin:3rem auto;padding:1rem;">
+		<h1>Contact</h1
 		<p>If you'd like to support the project, report an issue, or request details about sponsorships, use the contact information below.</p>
 		<ul>
 			<li>Phone: <a href="tel:+17039578321">1-703-957-8321</a></li>
@@ -52,15 +54,20 @@
 	</main>
 	<div style="clear:both;"></div>
 
-	<footer style="border-top:1px solid #eee;padding:14px 0;text-align:center;color:#666;margin-top:28px;">
+	<footer class="site-footer">
 		<div style="max-width:900px;margin:0 auto;">© 2025 InputDrive</div>
-		<p id="lastModified" style="color:#666;font-size:0.9rem;margin:4px 0 0;"></p>
+		<p id="lastModified"><time id="lastModifiedTime" datetime=""></time></p>
 	</footer>
 
 	<script src="/scripts/theme.js" defer></script>
 	<script>
-		const lastModified = new Date(document.lastModified);
-		document.getElementById("lastModified").innerHTML = "Page last edited: " + lastModified;
+		(function updateLastModified(){
+			const timeEl = document.getElementById('lastModifiedTime');
+			if (!timeEl) return;
+			const dt = new Date(document.lastModified || new Date());
+			timeEl.setAttribute('datetime', dt.toISOString());
+			timeEl.textContent = 'Page last edited: ' + dt.toLocaleString();
+		})();
 	</script>
 </body>
 </html>

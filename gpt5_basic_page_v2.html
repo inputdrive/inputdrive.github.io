@@ -119,6 +119,7 @@
   </script>
 </head>
 <body>
+  <a href="#content" class="skip-link">Skip to main content</a>
   <header>
     <div class="wrap nav">
       <div style="display:flex;align-items:center;gap:12px;">
@@ -302,12 +303,17 @@
 
   <footer role="contentinfo" style="border-top:1px solid rgba(255,255,255,.06);padding:14px 0;text-align:center;color:var(--muted);margin-top:28px;">
     <div style="max-width:900px;margin:0 auto;">© 2025 InputDrive</div>
-    <p id="lastModified" style="color:var(--muted);font-size:0.9rem;margin:4px 0 0;"></p>
+    <p id="lastModified"><time id="lastModifiedTime" datetime=""></time></p>
   </footer>
 
   <script>
-    const lastModified = new Date(document.lastModified);
-    document.getElementById("lastModified").innerHTML = "Page last edited: " + lastModified;
+    (function updateLastModified(){
+      const timeEl = document.getElementById('lastModifiedTime');
+      if (!timeEl) return;
+      const dt = new Date(document.lastModified || new Date());
+      timeEl.setAttribute('datetime', dt.toISOString());
+      timeEl.textContent = 'Page last edited: ' + dt.toLocaleString();
+    })();
   </script>
 </body>
 </html>

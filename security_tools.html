@@ -13,10 +13,12 @@
     <meta name="color-scheme" content="light dark">
     <link rel="canonical" href="https://inputdrivesecurity.us/security_tools.html">
     <title>Security Tools & Resources</title>
-    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="preload" href="/stylesheet.css" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/stylesheet.css"></noscript>
     <script async src="/scripts/analytics.js"></script>
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <header class="site-header">
         <div class="header-inner">
             <div style="display:flex;align-items:center;gap:12px;">
@@ -25,14 +27,14 @@
                     <strong>Input Drive Security</strong>
                 </a>
                 <a href="https://x.com/greg_inputdrive" target="_blank" rel="noopener noreferrer" aria-label="Follow on X" style="margin-left:8px;color:var(--color-text);text-decoration:none;font-weight:600;">
-                    <svg viewBox="0 0 1200 1227" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" style="display:inline-block;vertical-align:middle;width:var(--logo-size);height:var(--logo-size);" aria-labelledby="xLogoTitle"><title id="xLogoTitle">X</title><path d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.137 519.284H714.163ZM569.165 687.828L521.697 619.934L144.011 79.6944H306.615L611.412 515.685L658.88 583.579L1055.08 1150.3H892.476L569.165 687.854V687.828Z" fill="currentColor"/></svg>
+                    <svg viewBox="0 0 1200 1227" xmlns="http://www.w3.org/2000/svg" role="img" style="display:inline-block;vertical-align:middle;width:var(--logo-size);height:var(--logo-size);" aria-labelledby="xLogoTitle"><title id="xLogoTitle">X</title><path d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.137 519.284H714.163ZM569.165 687.828L521.697 619.934L144.011 79.6944H306.615L611.412 515.685L658.88 583.579L1055.08 1150.3H892.476L569.165 687.854V687.828Z" fill="currentColor"/></svg>
                 </a>
                 <a href="https://linkedin.com/in/greggutman/" target="_blank" rel="noopener noreferrer" aria-label="Connect on LinkedIn" style="margin-left:8px;color:#0A66C2;text-decoration:none;font-weight:600;">
-                    <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true" fill="currentColor" style="display:inline-block;vertical-align:middle;width:var(--logo-size);height:var(--logo-size);" aria-labelledby="lnLogoTitle"><title id="lnLogoTitle">LinkedIn</title><path d="M20.447 20.452h-3.554v-5.569c0-1.327-.026-3.036-1.852-3.036-1.853 0-2.136 1.447-2.136 2.942v5.663H9.35V8.999h3.413v1.542h.048c.476-.9 1.637-1.852 3.369-1.852 3.603 0 4.269 2.37 4.269 5.455v6.306zM5.337 7.433c-1.144 0-2.07-.926-2.07-2.07 0-1.144.926-2.07 2.07-2.07s2.07.926 2.07 2.07c0 1.144-.926 2.07-2.07 2.07zM7.115 20.452H3.559V8.999h3.556v11.453z"/></svg>
+                    <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" role="img" fill="currentColor" style="display:inline-block;vertical-align:middle;width:var(--logo-size);height:var(--logo-size);" aria-labelledby="lnLogoTitle"><title id="lnLogoTitle">LinkedIn</title><path d="M20.447 20.452h-3.554v-5.569c0-1.327-.026-3.036-1.852-3.036-1.853 0-2.136 1.447-2.136 2.942v5.663H9.35V8.999h3.413v1.542h.048c.476-.9 1.637-1.852 3.369-1.852 3.603 0 4.269 2.37 4.269 5.455v6.306zM5.337 7.433c-1.144 0-2.07-.926-2.07-2.07 0-1.144.926-2.07 2.07-2.07s2.07.926 2.07 2.07c0 1.144-.926 2.07-2.07 2.07zM7.115 20.452H3.559V8.999h3.556v11.453z"/></svg>
                 </a>
                 <button id="themeToggle" class="theme-toggle" aria-pressed="false" aria-label="Toggle light and dark mode" style="margin-left:8px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><title>Toggle theme</title><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" /></svg></button>
             </div>
-            <nav style="font-size:0.95rem"><a href="/index.html">Home</a></nav>
+            <nav class="main-nav" aria-label="Main navigation"><a href="/index.html">Home</a></nav>
         </div>
     </header>
 
@@ -55,7 +57,7 @@
         <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </aside>
 
-    <main style="max-width:900px;margin:28px auto;padding:0 16px;line-height:1.6;color:#111;">
+    <main id="main-content" role="main" style="max-width:900px;margin:28px auto;padding:0 16px;line-height:1.6;color:#111;">
         <h1>Security Tools & Resources</h1>
         <p>A curated collection of essential cybersecurity tools, frameworks, and learning platforms for security professionals, penetration testers, and enthusiasts.</p>
 
@@ -104,7 +106,7 @@
             <li style="margin-bottom:12px;"><a href="https://securityonion.net/" target="_blank" rel="noopener noreferrer">Security Onion</a> — Linux distribution for threat hunting, security monitoring, and log management.</li>
         </ul>
 
-        <p id="lastModified"></p>
+        <p id="lastModified"><time id="lastModifiedTime" datetime=""></time></p>
     </main>
     <div style="clear:both;"></div>
 
@@ -116,8 +118,13 @@
     <script src="/scripts/theme.js"></script>
 
     <script>
-        const lastModified = new Date(document.lastModified);
-        document.getElementById("lastModified").innerHTML = "Page last edited: " + lastModified;
+        (function updateLastModified(){
+            const timeEl = document.getElementById('lastModifiedTime');
+            if (!timeEl) return;
+            const dt = new Date(document.lastModified || new Date());
+            timeEl.setAttribute('datetime', dt.toISOString());
+            timeEl.textContent = 'Page last edited: ' + dt.toLocaleString();
+        })();
     </script>
 </body>
 </html>
