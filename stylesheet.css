@@ -296,22 +296,22 @@ a:focus-visible, button:focus-visible, .theme-toggle:focus-visible {
 .form-control:focus {
     border-color: var(--color-primary);
     outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-}
+    box-shadow: 0 0 0 0.2rem rgba(34, 34, 34, 0.12);
+} 
 
 /* Respect user's color-scheme preference for dark mode */
 @media (prefers-color-scheme: dark) {
     :root {
         --color-text: #e6eef8;
-        --color-primary: #66b0ff;
+        --color-primary: #cfcfcf;
         --color-secondary: #c0c6cc;
     }
     body {
-        background-color: #0b1220;
+        background-color: var(--color-bg);
         color: var(--color-text);
     }
     .card {
-        background-color: #081221;
+        background-color: var(--color-surface);
         box-shadow: none;
     }
 }
