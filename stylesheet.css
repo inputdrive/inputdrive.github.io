@@ -5,13 +5,13 @@
     /* Palette */
     --color-bg: #ffffff;
     --color-surface: #ffffff;
-    --color-text: #0b1220;
-    --color-muted: #6b7280;
-    --color-primary: #0a74dc; /* Input Drive blue */
-    --color-accent: #0a84ff;
-    --color-success: #28a745;
-    --color-danger: #dc3545;
-    --color-warning: #ffc107;
+    --color-text: #111111;
+    --color-muted: #6b6b6b;
+    --color-primary: #222222; /* Monochrome primary */
+    --color-accent: #444444; /* Monochrome accent */
+    --color-success: #4b4b4b; /* neutral success */
+    --color-danger: #6b6b6b;  /* neutral danger */
+    --color-warning: #8a8a8a; /* neutral warning */
 
     /* Layout / scale */
     --radius: 8px;
@@ -26,10 +26,10 @@
 
 /* Dark theme variables (applied by [data-theme="dark"]) */
 body[data-theme="dark"] {
-    --color-bg: #0b1220;
-    --color-surface: #081221;
+    --color-bg: #0b0b0b;
+    --color-surface: #0d0d0d;
     --color-text: #e6eef8;
-    --color-muted: #9aa4b2;
+    --color-muted: #9a9a9a;
     --shadow: none;
 }
 
@@ -62,9 +62,9 @@ body[data-theme="dark"] {
 }
 
 .tool-card:focus-visible {
-    outline: 3px solid rgba(10,116,220,0.18);
+    outline: 3px solid rgba(34,34,34,0.18);
     outline-offset: 2px;
-}
+} 
 
 /* Accessible helpers */
 .sr-only {
@@ -129,8 +129,8 @@ body[data-theme="dark"] {
 @media (prefers-color-scheme: dark) {
     :root {
         --color-text: #e6eef8;
-        --color-primary: #66b0ff;
-        --color-muted: #9aa4b2;
+        --color-primary: #cfcfcf;
+        --color-muted: #9a9a9a;
     }
     body {
         background-color: var(--color-bg);
@@ -140,7 +140,7 @@ body[data-theme="dark"] {
         background-color: var(--color-surface);
         box-shadow: none;
     }
-}
+} 
 
 /* Apply colorblind-friendly styles */
 /* Use Open Sans with performant fallbacks and improved contrast */
@@ -161,11 +161,7 @@ a {
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     font-weight: 600;
-    color: var(--color-primary);
-}
-
-h1, h2, h3, h4, h5, h6 {
-    color: var(--color-primary);
+    color: var(--color-text);
 }
 
 /* Add more styles as needed */
@@ -195,9 +191,9 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Ensure visible focus for interactive elements */
 a:focus-visible, button:focus-visible, .theme-toggle:focus-visible {
-    outline: 3px solid rgba(10,116,220,0.18);
+    outline: 3px solid rgba(34,34,34,0.18);
     outline-offset: 2px;
-}
+} 
 
 /* Respect reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
