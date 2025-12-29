@@ -128,6 +128,8 @@ body[data-theme="dark"] {
 /* Respect user's color-scheme preference for dark mode when no explicit choice */
 @media (prefers-color-scheme: dark) {
     :root {
+        --color-bg: #0b0b0b;
+        --color-surface: #0d0d0d;
         --color-text: #e6eef8;
         --color-primary: #cfcfcf;
         --color-muted: #9a9a9a;
@@ -148,7 +150,7 @@ body {
     font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     font-weight: 400;
     color: var(--color-text);
-    background-color: #fff;
+    background-color: var(--color-bg);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -302,6 +304,8 @@ a:focus-visible, button:focus-visible, .theme-toggle:focus-visible {
 /* Respect user's color-scheme preference for dark mode */
 @media (prefers-color-scheme: dark) {
     :root {
+        --color-bg: #0b0b0b;
+        --color-surface: #0d0d0d;
         --color-text: #e6eef8;
         --color-primary: #cfcfcf;
         --color-secondary: #c0c6cc;
