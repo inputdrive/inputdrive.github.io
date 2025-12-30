@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Multi-frame AdSense autoload test page for testing ad delivery across multiple iframes.">
+    <meta name="robots" content="noindex, nofollow">
+    <title>AdSense Multi-Frame Test | Input Drive Security</title>
+    <link rel="preload" href="/stylesheet.css" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/stylesheet.css"></noscript>
+    <script async src="/scripts/analytics.js"></script>
+    <style>
+        .frame-container {
+            margin: 20px 0;
+            border: 2px solid var(--color-primary, #007bff);
+            border-radius: 8px;
+            padding: 16px;
+            background: var(--color-surface, #f8f9fa);
+        }
+        .frame-container h3 {
+            margin-top: 0;
+            color: var(--color-text, #333);
+        }
+        iframe {
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
+            display: block;
+            margin: 12px 0;
+        }
+        .frame-info {
+            font-size: 0.9rem;
+            color: var(--color-text-secondary, #666);
+            margin-bottom: 8px;
+        }
+        .controls {
+            margin: 20px 0;
+            padding: 16px;
+            background: var(--color-surface, #f8f9fa);
+            border-radius: 8px;
+        }
+        .controls button {
+            padding: 8px 16px;
+            margin: 4px;
+            border: none;
+            border-radius: 4px;
+            background: var(--color-primary, #007bff);
+            color: white;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        .controls button:hover {
+            opacity: 0.9;
+        }
+        .status {
+            margin: 12px 0;
+            padding: 12px;
+            border-radius: 4px;
+            background: #e8f4f8;
+            color: #333;
+            font-family: monospace;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <header class="site-header">
+        <div class="header-inner">
+            <div class="brand">
+                <a href="/index.html" aria-label="Input Drive Security home" style="display:inline-flex;align-items:center;text-decoration:none;color:inherit;">
+                    <svg width="36" height="36" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <rect width="48" height="48" rx="6" fill="#222222"/>
+                        <g fill="#fff" font-family="sans-serif" font-weight="700" font-size="18" text-anchor="middle">
+                            <text x="50%" y="60%" dominant-baseline="middle">ID</text>
+                        </g>
+                    </svg>
+                    <strong style="margin-left:8px;font-size:1rem;">Input Drive Security</strong>
+                </a>
+            </div>
+            <nav class="main-nav" aria-label="Main navigation">
+                <a href="/index.html">Home</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content" role="main" style="max-width:1200px;margin:28px auto;padding:0 16px;">
+        <h1>AdSense Multi-Frame Autoload Test</h1>
+        <p>This page demonstrates automatic loading of Google AdSense ads across multiple iframes. Each frame loads independently and displays ad units.</p>
+        
+        <div class="controls">
+            <h3>Controls</h3>
+            <button onclick="reloadAllFrames()">Reload All Frames</button>
+            <button onclick="toggleFrameVisibility()">Toggle Frame Visibility</button>
+            <button onclick="addNewFrame()">Add New Frame</button>
+            <div id="status" class="status">Ready. Click "Reload All Frames" to refresh ad units.</div>
+        </div>
+
+        <div id="frames-wrapper">
+            <div class="frame-container" id="frame1-container">
+                <h3>Frame 1 - Responsive Ad Unit</h3>
+                <div class="frame-info">Size: 728x90 | Type: Display | Auto-refresh: Enabled</div>
+                <iframe id="frame1" height="150" title="AdSense Frame 1"></iframe>
+            </div>
+
+            <div class="frame-container" id="frame2-container">
+                <h3>Frame 2 - Square Ad Unit</h3>
+                <div class="frame-info">Size: 300x250 | Type: Display | Auto-refresh: Enabled</div>
+                <iframe id="frame2" height="300" title="AdSense Frame 2"></iframe>
+            </div>
+
+            <div class="frame-container" id="frame3-container">
+                <h3>Frame 3 - Vertical Ad Unit</h3>
+                <div class="frame-info">Size: 160x600 | Type: Display | Auto-refresh: Enabled</div>
+                <iframe id="frame3" height="650" title="AdSense Frame 3"></iframe>
+            </div>
+
+            <div class="frame-container" id="frame4-container">
+                <h3>Frame 4 - Large Rectangle</h3>
+                <div class="frame-info">Size: 336x280 | Type: Display | Auto-refresh: Enabled</div>
+                <iframe id="frame4" height="320" title="AdSense Frame 4"></iframe>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div style="max-width:900px;margin:0 auto;">© 2025 Input Drive Security</div>
+        <div style="margin-top:8px;"><a href="/contact.html">Contact</a></div>
+    </footer>
+
+    <script>
+        // AdSense configuration
+        const ADSENSE_CLIENT = 'ca-pub-5393775575907084';
+        const AD_SLOTS = {
+            frame1: '1111111111',
+            frame2: '2222222222',
+            frame3: '3333333333',
+            frame4: '4444444444'
+        };
+
+        let frameCounter = 5;
+        let framesVisible = true;
+
+        // Generate AdSense HTML for iframe content
+        function generateAdSenseHTML(slotId, width, height) {
+            return `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}"
+         crossorigin="anonymous"><\/script>
+    <style>
+        body { 
+            margin: 0; 
+            padding: 16px; 
+            font-family: system-ui, -apple-system, sans-serif;
+            background: #f5f5f5;
+        }
+        .ad-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: ` + height + `px;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+        }
+        .ad-label {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #999;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="ad-label">Advertisement</div>
+    <div class="ad-wrapper">
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:` + width + `px;height:` + height + `px"
+             data-ad-client="${ADSENSE_CLIENT}"
+             data-ad-slot="${slotId}"></ins>
+    </div>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+    <div style="margin-top:12px;font-size:0.8rem;color:#666;text-align:center;">
+        Frame loaded: ${new Date().toLocaleTimeString()}<br>
+        Slot ID: ${slotId}
+    </div>
+</body>
+</html>
+            `.trim();
+        }
+
+        // Load ads into all frames
+        function loadAllFrames() {
+            const frames = [
+                { id: 'frame1', slot: AD_SLOTS.frame1, width: 728, height: 90 },
+                { id: 'frame2', slot: AD_SLOTS.frame2, width: 300, height: 250 },
+                { id: 'frame3', slot: AD_SLOTS.frame3, width: 160, height: 600 },
+                { id: 'frame4', slot: AD_SLOTS.frame4, width: 336, height: 280 }
+            ];
+
+            frames.forEach(frame => {
+                const iframe = document.getElementById(frame.id);
+                if (iframe) {
+                    const doc = iframe.contentDocument || iframe.contentWindow.document;
+                    doc.open();
+                    doc.write(generateAdSenseHTML(frame.slot, frame.width, frame.height));
+                    doc.close();
+                }
+            });
+
+            updateStatus('All frames loaded successfully at ' + new Date().toLocaleTimeString());
+        }
+
+        // Reload all frames
+        function reloadAllFrames() {
+            updateStatus('Reloading all frames...');
+            loadAllFrames();
+        }
+
+        // Toggle frame visibility
+        function toggleFrameVisibility() {
+            framesVisible = !framesVisible;
+            const wrapper = document.getElementById('frames-wrapper');
+            wrapper.style.display = framesVisible ? 'block' : 'none';
+            updateStatus('Frames ' + (framesVisible ? 'shown' : 'hidden'));
+        }
+
+        // Add new frame dynamically
+        function addNewFrame() {
+            const wrapper = document.getElementById('frames-wrapper');
+            const newContainer = document.createElement('div');
+            newContainer.className = 'frame-container';
+            newContainer.id = `frame${frameCounter}-container`;
+            
+            const slotId = Math.floor(Math.random() * 9000000000) + 1000000000;
+            
+            newContainer.innerHTML = `
+                <h3>Frame ${frameCounter} - Dynamic Ad Unit</h3>
+                <div class="frame-info">Size: 300x250 | Type: Display | Dynamically added</div>
+                <iframe id="frame${frameCounter}" height="300" title="AdSense Frame ${frameCounter}"></iframe>
+            `;
+            
+            wrapper.appendChild(newContainer);
+            
+            // Load ad into new frame
+            setTimeout(() => {
+                const iframe = document.getElementById(`frame${frameCounter}`);
+                if (iframe) {
+                    const doc = iframe.contentDocument || iframe.contentWindow.document;
+                    doc.open();
+                    doc.write(generateAdSenseHTML(slotId, 300, 250));
+                    doc.close();
+                }
+            }, 100);
+            
+            updateStatus(`Frame ${frameCounter} added dynamically with slot ID: ${slotId}`);
+            frameCounter++;
+        }
+
+        // Update status message
+        function updateStatus(message) {
+            const status = document.getElementById('status');
+            if (status) {
+                status.textContent = message;
+            }
+        }
+
+        // Auto-load frames on page load
+        window.addEventListener('load', () => {
+            updateStatus('Initializing frames...');
+            setTimeout(() => {
+                loadAllFrames();
+            }, 500);
+        });
+
+        // Periodic auto-refresh (every 30 seconds)
+        setInterval(() => {
+            if (framesVisible) {
+                updateStatus('Auto-refreshing frames at ' + new Date().toLocaleTimeString());
+                loadAllFrames();
+            }
+        }, 30000);
+    </script>
+    <script src="/scripts/theme.js" defer></script>
+</body>
+</html>
