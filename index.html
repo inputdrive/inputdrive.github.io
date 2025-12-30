@@ -230,11 +230,23 @@
                 .catch(error => errorCallback());
         }
         
+        // HTML escaping function to prevent DOM-based injection attacks
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return String(text || '').replace(/[&<>"']/g, m => map[m]);
+        }
+        
         function displayLocationInfo(data) {
-            const city = data.city || "Unknown";
-            const region = data.region || "Unknown";
-            const country = data.country_name || "Unknown";
-            const ipAddress = data.ip || "Unknown";
+            const city = escapeHtml(data.city || "Unknown");
+            const region = escapeHtml(data.region || "Unknown");
+            const country = escapeHtml(data.country_name || "Unknown");
+            const ipAddress = escapeHtml(data.ip || "Unknown");
             const infoEl = document.getElementById("ipInfo");
             if (!infoEl) return;
             // Use textContent (no HTML) and avoid logging IP to console for privacy

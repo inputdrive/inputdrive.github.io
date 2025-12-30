@@ -63,17 +63,29 @@
     <script>
         let apiSuccess = false;
         
+        // HTML escaping function to prevent DOM-based injection attacks
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return String(text || '').replace(/[&<>"']/g, m => map[m]);
+        }
+        
         function displayData(data) {
             let output = "<h2>Your Location Information</h2>";
             output += "<table style='width:100%;border-collapse:collapse;'>";
-            output += "<tr><td style='padding:8px;border-bottom:1px solid #ddd;'><strong>IP Address:</strong></td><td style='padding:8px;border-bottom:1px solid #ddd;'>" + (data.ip || "N/A") + "</td></tr>";
-            output += "<tr><td style='padding:8px;border-bottom:1px solid #ddd;'><strong>City:</strong></td><td style='padding:8px;border-bottom:1px solid #ddd;'>" + (data.city || "N/A") + "</td></tr>";
-            output += "<tr><td style='padding:8px;border-bottom:1px solid #ddd;'><strong>Region:</strong></td><td style='padding:8px;border-bottom:1px solid #ddd;'>" + (data.region || "N/A") + "</td></tr>";
-            output += "<tr><td style='padding:8px;border-bottom:1px solid #ddd;'><strong>Country:</strong></td><td style='padding:8px;border-bottom:1px solid #ddd;'>" + (data.country_name || "N/A") + "</td></tr>";
-            output += "<tr><td style='padding:8px;border-bottom:1px solid #ddd;'><strong>Latitude:</strong></td><td style='padding:8px;border-bottom:1px solid #ddd;'>" + (data.latitude || "N/A") + "</td></tr>";
-            output += "<tr><td style='padding:8px;border-bottom:1px solid #ddd;'><strong>Longitude:</strong></td><td style='padding:8px;border-bottom:1px solid #ddd;'>" + (data.longitude || "N/A") + "</td></tr>";
-            output += "<tr><td style='padding:8px;border-bottom:1px solid #ddd;'><strong>Timezone:</strong></td><td style='padding:8px;border-bottom:1px solid #ddd;'>" + (data.timezone || "N/A") + "</td></tr>";
-            output += "<tr><td style='padding:8px;'><strong>ISP:</strong></td><td style='padding:8px;'>" + (data.org || "N/A") + "</td></tr>";
+            output += "<tr><td style='padding:8px;border-bottom:1px solid #ddd;'><strong>IP Address:</strong></td><td style='padding:8px;border-bottom:1px solid #ddd;'>" + escapeHtml(data.ip || "N/A") + "</td></tr>";
+            output += "<tr><td style='padding:8px;border-bottom:1px solid #ddd;'><strong>City:</strong></td><td style='padding:8px;border-bottom:1px solid #ddd;'>" + escapeHtml(data.city || "N/A") + "</td></tr>";
+            output += "<tr><td style='padding:8px;border-bottom:1px solid #ddd;'><strong>Region:</strong></td><td style='padding:8px;border-bottom:1px solid #ddd;'>" + escapeHtml(data.region || "N/A") + "</td></tr>";
+            output += "<tr><td style='padding:8px;border-bottom:1px solid #ddd;'><strong>Country:</strong></td><td style='padding:8px;border-bottom:1px solid #ddd;'>" + escapeHtml(data.country_name || "N/A") + "</td></tr>";
+            output += "<tr><td style='padding:8px;border-bottom:1px solid #ddd;'><strong>Latitude:</strong></td><td style='padding:8px;border-bottom:1px solid #ddd;'>" + escapeHtml(data.latitude || "N/A") + "</td></tr>";
+            output += "<tr><td style='padding:8px;border-bottom:1px solid #ddd;'><strong>Longitude:</strong></td><td style='padding:8px;border-bottom:1px solid #ddd;'>" + escapeHtml(data.longitude || "N/A") + "</td></tr>";
+            output += "<tr><td style='padding:8px;border-bottom:1px solid #ddd;'><strong>Timezone:</strong></td><td style='padding:8px;border-bottom:1px solid #ddd;'>" + escapeHtml(data.timezone || "N/A") + "</td></tr>";
+            output += "<tr><td style='padding:8px;'><strong>ISP:</strong></td><td style='padding:8px;'>" + escapeHtml(data.org || "N/A") + "</td></tr>";
             output += "</table>";
             document.getElementById("data").innerHTML = output;
         }
