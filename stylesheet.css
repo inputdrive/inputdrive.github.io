@@ -125,25 +125,6 @@ body[data-theme="dark"] {
     .tool-card h4 { font-size: 0.98rem; }
 }
 
-/* Respect user's color-scheme preference for dark mode when no explicit choice */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --color-bg: #0b0b0b;
-        --color-surface: #0d0d0d;
-        --color-text: #e6eef8;
-        --color-primary: #cfcfcf;
-        --color-muted: #9a9a9a;
-    }
-    body {
-        background-color: var(--color-bg);
-        color: var(--color-text);
-    }
-    .card {
-        background-color: var(--color-surface);
-        box-shadow: none;
-    }
-} 
-
 /* Apply colorblind-friendly styles */
 /* Use Open Sans with performant fallbacks and improved contrast */
 body {
@@ -309,6 +290,7 @@ a:focus-visible, button:focus-visible, .theme-toggle:focus-visible {
         --color-text: #e6eef8;
         --color-primary: #cfcfcf;
         --color-secondary: #c0c6cc;
+        --color-muted: #9a9a9a;
     }
     body {
         background-color: var(--color-bg);
