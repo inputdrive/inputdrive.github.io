@@ -225,10 +225,11 @@ a:focus-visible, button:focus-visible, .theme-toggle:focus-visible {
     width: 160px;
     margin: 12px 16px;
     display: block;
+    min-height: 600px; /* Reserve space to prevent layout shift */
 }
 .ads-side.left { float: left; }
 .ads-side.right { float: right; }
-.ads-side .adsbygoogle { display: block; width: 100%; }
+.ads-side .adsbygoogle { display: block; width: 100%; min-height: 600px; }
 
 /* Hide side ads on small screens for better UX */
 @media (max-width: 900px) {

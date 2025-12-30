@@ -25,8 +25,6 @@
     <link rel="preload" href="/stylesheet.css" as="style" onload="this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/stylesheet.css"></noscript>
     <script async src="/scripts/analytics.js"></script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5393775575907084"
-         crossorigin="anonymous"></script>
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -208,7 +206,7 @@
     <footer class="site-footer">
         <div style="max-width:900px;margin:0 auto;">© 2025 Input Drive Security</div>
         <div style="margin-top:8px;"><a href="/contact.html">Contact</a></div>
-        <div id="ipInfo" role="status" aria-live="polite" style="font-size:0.85rem;margin-top:8px;"></div>
+        <div id="ipInfo" role="status" aria-live="polite" style="font-size:0.85rem;margin-top:8px;min-height:20px;"></div>
     </footer>
 
     <script>
@@ -220,78 +218,97 @@
             timeEl.textContent = 'Page last edited: ' + dt.toLocaleString();
         })();
 
-        function tryApi(url, successCallback, errorCallback) {
-            fetch(url, { mode: 'cors', credentials: 'omit', cache: 'no-store' })
-                .then(response => {
-                    if (!response.ok) throw new Error('API error');
-                    return response.json();
-                })
-                .then(data => successCallback(data))
-                .catch(error => errorCallback());
-        }
+        // Lazy-load geolocation only when footer is visible
+        (function lazyLoadGeolocation() {
+            const infoEl = document.getElementById('ipInfo');
+            if (!infoEl || !('IntersectionObserver' in window)) return;
+            
+            let loaded = false;
+            const observer = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting && !loaded) {
+                    loaded = true;
+                    observer.disconnect();
+                    loadGeolocation();
+                }
+            }, { rootMargin: '50px' });
+            
+            observer.observe(infoEl);
+        })();
         
-        // HTML escaping function to prevent DOM-based injection attacks
-        function escapeHtml(text) {
-            const map = {
-                '&': '&amp;',
-                '<': '&lt;',
-                '>': '&gt;',
-                '"': '&quot;',
-                "'": '&#039;'
-            };
-            return String(text || '').replace(/[&<>"']/g, m => map[m]);
-        }
-        
-        function displayLocationInfo(data) {
-            const city = escapeHtml(data.city || "Unknown");
-            const region = escapeHtml(data.region || "Unknown");
-            const country = escapeHtml(data.country_name || "Unknown");
-            const ipAddress = escapeHtml(data.ip || "Unknown");
-            const infoEl = document.getElementById("ipInfo");
-            if (!infoEl) return;
-            // Use textContent (no HTML) and avoid logging IP to console for privacy
-            infoEl.textContent = `Your location: ${city}, ${region}, ${country} — IP: ${ipAddress}`;
-        }
-        
-        // Try primary API: ipapi.co
-        tryApi(
-            "https://ipapi.co/json/",
-            displayLocationInfo,
-            function() {
-                // Fallback to secondary API: ip-api.com
-                tryApi(
-                    "https://ip-api.com/json/",
-                    function(data) {
-                        var mappedData = {
-                            ip: data.query,
-                            city: data.city,
-                            region: data.region,
-                            country_name: data.country
-                        };
-                        displayLocationInfo(mappedData);
-                    },
-                    function() {
-                        // Final fallback: ipwho.is
-                        tryApi(
-                            "https://ipwho.is/",
-                            function(data) {
-                                var mappedData = {
-                                    ip: data.ip,
-                                    city: data.city,
-                                    region: data.region,
-                                    country_name: data.country_name
-                                };
-                                displayLocationInfo(mappedData);
-                            },
-                            function() {
-                                const infoEl = document.getElementById("ipInfo");
-                                if (infoEl) infoEl.textContent = 'Location lookup unavailable (check ad blocker or privacy settings)';
-                            }
-                        );
-                    }
-                );
+        function loadGeolocation() {
+            function tryApi(url, successCallback, errorCallback) {
+                fetch(url, { mode: 'cors', credentials: 'omit', cache: 'no-store' })
+                    .then(response => {
+                        if (!response.ok) throw new Error('API error');
+                        return response.json();
+                    })
+                    .then(data => successCallback(data))
+                    .catch(error => errorCallback());
             }
-        );
+            
+            // HTML escaping function to prevent DOM-based injection attacks
+            function escapeHtml(text) {
+                const map = {
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#039;'
+                };
+                return String(text || '').replace(/[&<>"']/g, m => map[m]);
+            }
+            
+            function displayLocationInfo(data) {
+                const city = escapeHtml(data.city || "Unknown");
+                const region = escapeHtml(data.region || "Unknown");
+                const country = escapeHtml(data.country_name || "Unknown");
+                const ipAddress = escapeHtml(data.ip || "Unknown");
+                const infoEl = document.getElementById("ipInfo");
+                if (!infoEl) return;
+                // Use textContent (no HTML) and avoid logging IP to console for privacy
+                infoEl.textContent = `Your location: ${city}, ${region}, ${country} — IP: ${ipAddress}`;
+            }
+            
+            // Try primary API: ipapi.co
+            tryApi(
+                "https://ipapi.co/json/",
+                displayLocationInfo,
+                function() {
+                    // Fallback to secondary API: ip-api.com
+                    tryApi(
+                        "https://ip-api.com/json/",
+                        function(data) {
+                            var mappedData = {
+                                ip: data.query,
+                                city: data.city,
+                                region: data.region,
+                                country_name: data.country
+                            };
+                            displayLocationInfo(mappedData);
+                        },
+                        function() {
+                            // Final fallback: ipwho.is
+                            tryApi(
+                                "https://ipwho.is/",
+                                function(data) {
+                                    var mappedData = {
+                                        ip: data.ip,
+                                        city: data.city,
+                                        region: data.region,
+                                        country_name: data.country_name
+                                    };
+                                    displayLocationInfo(mappedData);
+                                },
+                                function() {
+                                    const infoEl = document.getElementById("ipInfo");
+                                    if (infoEl) infoEl.textContent = 'Location lookup unavailable (check ad blocker or privacy settings)';
+                                }
+                            );
+                        }
+                    );
+                }
+            );
+        }
         /* Theme toggle: apply saved preference or follow system */
         (function themeInit(){
             const btn = document.getElementById('themeToggle');
