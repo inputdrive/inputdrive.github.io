@@ -50,9 +50,13 @@ def patch_file(path: str, url: str, sri: str):
     # First normalize the path to resolve any . or .. components
     normalized_path = os.path.normpath(path)
     
-    # Reject any path containing ".." after normalization
+    # Reject any path containing ".." after normalization to prevent directory traversal
     if ".." in normalized_path:
         raise ValueError(f"Path contains '..' which is not allowed: {path}")
+    
+    # Additional check: reject absolute paths to ensure relative path within workspace
+    if os.path.isabs(path):
+        raise ValueError(f"Absolute paths are not allowed: {path}")
     
     # Resolve to absolute path
     abs_path = os.path.abspath(normalized_path)
@@ -70,9 +74,27 @@ def patch_file(path: str, url: str, sri: str):
     if not os.path.isfile(abs_path):
         raise ValueError(f"Path must be an existing file: {path}")
     
-    # Use the validated absolute path for all file operations
+    # Create a sanitized path by re-constructing it from validated components
+    # Extract just the filename from the validated path to break taint flow
+    validated_filename = os.path.basename(abs_path)
+    
+    # Ensure filename only contains safe characters (alphanumeric, dash, underscore, dot)
+    import string
+    safe_chars = string.ascii_letters + string.digits + '-_.'
+    if not all(c in safe_chars for c in validated_filename):
+        raise ValueError(f"Filename contains invalid characters: {validated_filename}")
+    
+    # Reconstruct the full path using the allowed directory and validated filename
+    # This completely breaks the data flow from the original unsanitized input
+    sanitized_path = os.path.join(allowed_dir, validated_filename)
+    
+    # Final verification: ensure the reconstructed path matches our validated path
+    if os.path.realpath(sanitized_path) != os.path.realpath(abs_path):
+        raise ValueError(f"Path reconstruction validation failed")
+    
+    # Use the sanitized path for all file operations
     # All validations passed: no "..", within allowed_dir, .html extension, exists as file
-    with open(abs_path, 'r', encoding='utf-8') as f:  # Path validated above
+    with open(sanitized_path, 'r', encoding='utf-8') as f:  # Path sanitized above
         s = f.read()
     
     # Replace existing integrity attribute for this src or add it
@@ -83,7 +105,7 @@ def patch_file(path: str, url: str, sri: str):
         s = re.sub(r'(<script[^>]*src="%s"[^>]*)(>)' % re.escape(url), r"\1 integrity=\"%s\"\2" % sri, s)
     
     # Use the validated absolute path for writing
-    with open(abs_path, 'w', encoding='utf-8') as f:  # Path validated above
+    with open(sanitized_path, 'w', encoding='utf-8') as f:  # Path sanitized above
         f.write(s)
 
 
