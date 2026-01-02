@@ -42,19 +42,75 @@
     ADVERTISEMENT - Should be BLOCKED
   </div>
 
+  <!-- Additional ad blocker test elements -->
+  <div class="adsbygoogle" style="width:300px;height:100px;background:red;color:white;margin:20px auto;">
+    Google Ads Test - Should be BLOCKED
+  </div>
+
+  <ins class="adsbygoogle" style="display:inline-block;width:300px;height:100px;background:red;color:white;margin:20px auto;">
+    AdSense Element - Should be BLOCKED
+  </ins>
+
   <!-- Keep this script for ad blocker detection testing -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5393775575907084" crossorigin="anonymous"></script>
-  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 
-  <div id="test" style="display:none">Ad blocker WORKING ✓</div>
+  <div id="test-results" style="margin:30px auto;padding:20px;border:2px solid #ccc;max-width:600px;font-size:18px;">
+    <strong>Testing...</strong>
+  </div>
+
   <script>
     setTimeout(() => {
-      if (document.querySelector('.ad-banner')?.offsetHeight === 0 ||
-          document.querySelector('.ad-banner') === null) {
-        document.getElementById('test').style.display = 'block';
-        document.getElementById('test').style.color = 'green';
+      const results = [];
+      const banner = document.querySelector('.ad-banner');
+      const adsbygoogle = document.querySelector('.adsbygoogle');
+      const adsenseIns = document.querySelector('ins.adsbygoogle');
+      
+      // Test 1: Generic ad banner
+      if (!banner || banner.offsetHeight === 0 || getComputedStyle(banner).display === 'none') {
+        results.push('✓ Generic ad banner blocked');
+      } else {
+        results.push('✗ Generic ad banner NOT blocked');
       }
-    }, 1000);
+      
+      // Test 2: AdsByGoogle class
+      if (!adsbygoogle || adsbygoogle.offsetHeight === 0 || getComputedStyle(adsbygoogle).display === 'none') {
+        results.push('✓ .adsbygoogle element blocked');
+      } else {
+        results.push('✗ .adsbygoogle element NOT blocked');
+      }
+      
+      // Test 3: AdSense ins element
+      if (!adsenseIns || adsenseIns.offsetHeight === 0 || getComputedStyle(adsenseIns).display === 'none') {
+        results.push('✓ AdSense ins element blocked');
+      } else {
+        results.push('✗ AdSense ins element NOT blocked');
+      }
+      
+      // Test 4: AdSense script
+      const adsenseScript = document.querySelector('script[src*="adsbygoogle.js"]');
+      if (!adsenseScript || !window.adsbygoogle) {
+        results.push('✓ AdSense script blocked');
+      } else {
+        results.push('✗ AdSense script NOT blocked');
+      }
+      
+      const passed = results.filter(r => r.startsWith('✓')).length;
+      const total = results.length;
+      const allPassed = passed === total;
+      
+      const resultsDiv = document.getElementById('test-results');
+      resultsDiv.style.borderColor = allPassed ? 'green' : 'orange';
+      resultsDiv.style.color = allPassed ? 'green' : 'darkred';
+      resultsDiv.innerHTML = `
+        <strong>${allPassed ? '✓ Ad Blocker Working!' : '⚠ Ad Blocker Partial/Not Working'}</strong><br>
+        <div style="margin-top:15px;text-align:left;">
+          ${results.map(r => '<div style="margin:5px 0;">' + r + '</div>').join('')}
+        </div>
+        <div style="margin-top:15px;font-size:14px;color:#666;">
+          Tests passed: ${passed}/${total}
+        </div>
+      `;
+    }, 1500);
   </script>
     <p><a href="/index.html">Back to Index</a></p>
   </main>
