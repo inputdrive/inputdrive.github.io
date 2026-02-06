@@ -2,16 +2,17 @@
 
 /* Design system variables */
 :root {
-    /* Palette */
+    /* Palette (aligned with GitHub) */
     --color-bg: #ffffff;
     --color-surface: #ffffff;
-    --color-text: #111111;
-    --color-muted: #6b6b6b;
-    --color-primary: #222222; /* Monochrome primary */
-    --color-accent: #444444; /* Monochrome accent */
-    --color-success: #4b4b4b; /* neutral success */
-    --color-danger: #6b6b6b;  /* neutral danger */
-    --color-warning: #8a8a8a; /* neutral warning */
+    --color-text: #24292f; /* GitHub body text */
+    --color-muted: #6e7681; /* GitHub muted */
+    --color-primary: #0969da; /* GitHub link/button blue */
+    --color-accent: #1f6feb; /* Accent blue */
+    --color-secondary: #0550ae; /* Hover / darker blue */
+    --color-success: #2da44e; /* GitHub green */
+    --color-danger: #cf222e;  /* GitHub red */
+    --color-warning: #dbab09; /* GitHub yellow */
 
     /* Layout / scale */
     --radius: 8px;
@@ -26,10 +27,13 @@
 
 /* Dark theme variables (applied by [data-theme="dark"]) */
 body[data-theme="dark"] {
-    --color-bg: #0b0b0b;
-    --color-surface: #0d0d0d;
-    --color-text: #e6eef8;
-    --color-muted: #9a9a9a;
+    --color-bg: #0d1117; /* GitHub dark */
+    --color-surface: #0d1117;
+    --color-text: #c9d1d9;
+    --color-muted: #8b949e;
+    --color-primary: #58a6ff; /* GitHub blue for links in dark */
+    --color-accent: #1f6feb;
+    --color-secondary: #1f6feb;
     --shadow: none;
 }
 
@@ -317,12 +321,12 @@ a:focus-visible, button:focus-visible, .theme-toggle:focus-visible {
 /* Respect user's color-scheme preference for dark mode */
 @media (prefers-color-scheme: dark) {
     :root {
-        --color-bg: #0b0b0b;
-        --color-surface: #0d0d0d;
-        --color-text: #e6eef8;
-        --color-primary: #cfcfcf;
-        --color-secondary: #c0c6cc;
-        --color-muted: #9a9a9a;
+        --color-bg: #0d1117;
+        --color-surface: #0d1117;
+        --color-text: #c9d1d9;
+        --color-primary: #58a6ff;
+        --color-secondary: #1f6feb;
+        --color-muted: #8b949e;
     }
     body {
         background-color: var(--color-bg);

@@ -123,7 +123,7 @@
      "@context": "https://schema.org",
      "@type": "WebSite",
      "name": "InputDrive",
-     "url": "https://inputdrive.github.io"
+     "url": "https://inputdrivesecurity.us"
    }
    </script>
    ```
@@ -131,8 +131,7 @@
 2. **Add Canonical Links** (already added to index.html)
    - Apply to all pages to prevent duplicate content issues
    ```html
-   <link rel="canonical" href="https://inputdrive.github.io/page.html">
-   ```
+<link rel="canonical" href="https://inputdrivesecurity.us/page.html">
 
 3. **Open Graph Tags for Social Sharing**
    ```html

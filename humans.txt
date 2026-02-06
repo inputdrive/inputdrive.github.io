@@ -1,7 +1,7 @@
 /* TEAM */
 Site: Input Drive Security — Small tools, calculators & security resources
 Maintainer: Greg (@greg_inputdrive) — creator & maintainer
-Contact: https://inputdrive.github.io/contact.html
+Contact: https://inputdrivesecurity.us/contact.html
 
 /* TECH */
 Built with: HTML, CSS, Vanilla JS
