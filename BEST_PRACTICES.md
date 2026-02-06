@@ -97,7 +97,7 @@
    
    ```html
    <!-- Good -->
-   <script async src="https://example-cdn.com/widget.min.js"></script>
+   <script async src="https://cdn.jsdelivr.net/npm/library@latest/library.min.js"></script>
    
    <!-- Also good for non-blocking -->
    <script defer src="analytics.js"></script>
