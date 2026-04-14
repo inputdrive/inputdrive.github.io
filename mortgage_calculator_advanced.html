@@ -18,25 +18,53 @@
             var periodYears = parseFloat(document.getElementById("periodYears").value);
             var additionalPayment = parseFloat(document.getElementById("additionalPayment").value) || 0;
 
+            if (!isFinite(loanAmount) || !isFinite(interestRate) || !isFinite(periodYears) ||
+                loanAmount <= 0 || interestRate < 0 || periodYears <= 0 || additionalPayment < 0) {
+                document.getElementById("result").innerHTML = "<p style='color:#b00020;'><strong>Please enter valid positive values.</strong></p>";
+                return;
+            }
+
             var monthlyInterestRate = interestRate / 100 / 12;
-            var totalMonths = periodYears * 12;
+            var totalMonths = Math.round(periodYears * 12);
 
             // Calculate base monthly payment (amortization formula)
-            var monthlyPayment = (loanAmount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -totalMonths));
+            var monthlyPayment = monthlyInterestRate === 0
+                ? loanAmount / totalMonths
+                : (loanAmount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -totalMonths));
             
             // Calculate total payment without extra payments
             var totalPayment = monthlyPayment * totalMonths;
             var totalInterest = totalPayment - loanAmount;
-            
-            // Calculate actual total interest WITH extra payments
-            // (extra payments reduce the total amount of interest paid)
-            var totalWithExtraPayments = (monthlyPayment + additionalPayment) * totalMonths;
-            var interestSavedFromExtra = 0;
-            
-            if (additionalPayment > 0) {
-                // With extra payments, total paid is less
-                interestSavedFromExtra = totalPayment - (totalWithExtraPayments - loanAmount);
+
+            // Simulate amortization with extra payments to get real payoff timeline/interest
+            var remainingBalance = loanAmount;
+            var actualTotalPaid = 0;
+            var actualMonths = 0;
+
+            while (remainingBalance > 0 && actualMonths < 1200) {
+                var monthlyInterest = remainingBalance * monthlyInterestRate;
+                var paymentThisMonth = monthlyPayment + additionalPayment;
+                var principalPayment = paymentThisMonth - monthlyInterest;
+
+                if (principalPayment <= 0) {
+                    document.getElementById("result").innerHTML = "<p style='color:#b00020;'><strong>Payment is too low to reduce principal. Increase payment amount.</strong></p>";
+                    return;
+                }
+
+                if (principalPayment > remainingBalance) {
+                    paymentThisMonth = remainingBalance + monthlyInterest;
+                    principalPayment = remainingBalance;
+                }
+
+                remainingBalance -= principalPayment;
+                actualTotalPaid += paymentThisMonth;
+                actualMonths++;
             }
+
+            var totalWithExtraPayments = actualTotalPaid;
+            var totalInterestWithExtra = totalWithExtraPayments - loanAmount;
+            var interestSavedFromExtra = totalInterest - totalInterestWithExtra;
+            var yearsSaved = (totalMonths - actualMonths) / 12;
 
             var result = "<table style='width:100%;border-collapse:collapse;'>";
             result += "<tr style='border-bottom:1px solid #ddd;'><td><strong>Loan Amount:</strong></td><td style='text-align:right;'>$" + loanAmount.toFixed(2) + "</td></tr>";
@@ -49,8 +77,9 @@
             result += "<tr style='border-bottom:2px solid #333;'><td><strong>Total Amount Paid:</strong></td><td style='text-align:right;'><strong>$" + totalWithExtraPayments.toFixed(2) + "</strong></td></tr>";
             
             result += "<tr style='border-bottom:1px solid #ddd;'><td><strong>Total Interest (without extra payments):</strong></td><td style='text-align:right;'>$" + totalInterest.toFixed(2) + "</td></tr>";
-            result += "<tr style='border-bottom:1px solid #ddd;'><td><strong>Interest Saved by Extra Payments:</strong></td><td style='text-align:right;color:green;'><strong>$" + interestSavedFromExtra.toFixed(2) + "</strong></td></tr>";
-            result += "<tr><td><strong>Net Total Interest Paid:</strong></td><td style='text-align:right;'><strong>$" + (totalInterest - interestSavedFromExtra).toFixed(2) + "</strong></td></tr>";
+            result += "<tr style='border-bottom:1px solid #ddd;'><td><strong>Interest Saved by Extra Payments:</strong></td><td style='text-align:right;color:green;'><strong>$" + Math.max(interestSavedFromExtra, 0).toFixed(2) + "</strong></td></tr>";
+            result += "<tr style='border-bottom:1px solid #ddd;'><td><strong>Net Total Interest Paid:</strong></td><td style='text-align:right;'><strong>$" + totalInterestWithExtra.toFixed(2) + "</strong></td></tr>";
+            result += "<tr><td><strong>Estimated Time Saved:</strong></td><td style='text-align:right;'><strong>" + Math.max(yearsSaved, 0).toFixed(2) + " years</strong></td></tr>";
             result += "</table>";
 
             document.getElementById("result").innerHTML = result;
