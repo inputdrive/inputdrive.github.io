@@ -247,6 +247,43 @@ a:focus-visible, button:focus-visible, .theme-toggle:focus-visible {
     height: var(--logo-size);
 }
 
+.brand-logo {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.social-link-primary {
+    color: var(--color-primary);
+}
+
+.header-inner .theme-toggle {
+    margin-left: 8px;
+}
+
+.content-shell {
+    max-width: 900px;
+    margin: 28px auto;
+    padding: 0 16px;
+}
+
+.section-spaced {
+    margin-top: 12px;
+}
+
+.script-list {
+    font-size: 0.95rem;
+    margin-top: 8px;
+}
+
+.sri-badge {
+    opacity: 0.8;
+}
+
+.footer-inner {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
 .button {
     display: inline-block;
     padding: 10px 20px;
