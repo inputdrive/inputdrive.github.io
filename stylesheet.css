@@ -224,28 +224,6 @@ a:focus-visible, button:focus-visible, .theme-toggle:focus-visible {
     margin: 0 auto;
 }
 
-/* AdSense sidebars: default desktop positions and responsive hiding */
-.ads-side {
-    width: 160px;
-    margin: 12px 16px;
-    display: block;
-    min-height: 600px; /* Reserve space to prevent layout shift */
-}
-.ads-side.left { float: left; }
-.ads-side.right { float: right; }
-.ads-side .adsbygoogle { display: block; width: 100%; min-height: 600px; }
-
-/* Hide side ads on small screens for better UX */
-@media (max-width: 900px) {
-    .ads-side { display: none; }
-    /* Ensure main content uses full width */
-    main { margin: 28px 16px; }
-    /* Inline ad style for mobile */
-    .ad-inline { display:block; width:100%; min-height:90px; margin:12px 0; text-align:center; }
-    .ad-inline.ins.adsbygoogle { display:block; }
-}
-
-
 /* Site header */
 .site-header {
     background: var(--color-surface);

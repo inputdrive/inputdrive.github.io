@@ -20,4 +20,6 @@ This repository hosts [inputdrivesecurity.us](https://inputdrivesecurity.us), a 
 - Security and privacy tools
 - Educational web applications
 
-Feel free to explore my repositories, contribute, or reach out for collaboration opportunities!
+### Privacy First
+
+This site is privacy-focused: no analytics, no ads, no tracking. All processing happens client-side.

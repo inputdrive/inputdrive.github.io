@@ -98,9 +98,6 @@
    ```html
    <!-- Good -->
    <script async src="https://cdn.jsdelivr.net/npm/library@latest/library.min.js"></script>
-   
-   <!-- Also good for non-blocking -->
-   <script defer src="analytics.js"></script>
    ```
 
 2. **Preload Critical Resources**

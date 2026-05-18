@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-adsense-account" content="ca-pub-5393775575907084">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
@@ -24,7 +23,6 @@
     <link rel="manifest" href="/manifest.webmanifest">
     <link rel="preload" href="/stylesheet.css" as="style" onload="this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/stylesheet.css"></noscript>
-    <script async src="/scripts/analytics.js"></script>
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -65,24 +63,6 @@
             <nav class="main-nav" aria-label="Main navigation"><a href="/index.html">Home</a></nav>
         </div>
     </header>
-
-    <!-- Left and right AdSense placeholders (replace data-ad-slot with your ad unit IDs) -->
-    <aside class="ads-side left" role="complementary" aria-label="Left sidebar advertisement">
-        <!-- Replace data-ad-slot with your actual ad slot id -->
-        <ins class="adsbygoogle"
-             data-ad-client="ca-pub-5393775575907084"
-             data-ad-slot="1111111111"
-             data-ad-format="auto"></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-    </aside>
-
-    <aside class="ads-side right" role="complementary" aria-label="Right sidebar advertisement">
-        <ins class="adsbygoogle"
-             data-ad-client="ca-pub-5393775575907084"
-             data-ad-slot="2222222222"
-             data-ad-format="auto"></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-    </aside>
 
     <main id="main-content" role="main" style="max-width:900px;margin:28px auto;padding:0 16px;line-height:1.6;color:#111;">
         <h1>Hello World — Input Drive Security - Index Page</h1>
@@ -167,36 +147,6 @@
                     <p>Dynamic last-modified timestamp and test utilities.</p>
                 </div>
             </a>
-
-            <a class="tool-card" href="/AdBlockerTestPage.html" aria-label="Ad Blocker Test">
-                <span class="icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12l3 8h12l3-8-3-8H6L3 12z"/></svg>
-                </span>
-                <div class="meta">
-                    <h4>Ad Blocker Test</h4>
-                    <p>Check whether ad-blocking browser extensions are active.</p>
-                </div>
-            </a>
-
-            <a class="tool-card" href="/gpt5_basic_page.html" aria-label="Everyday Gear Reviews">
-                <span class="icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-                </span>
-                <div class="meta">
-                    <h4>Everyday Gear Reviews</h4>
-                    <p>Example blog-style page demonstrating article structure and ads.</p>
-                </div>
-            </a>
-
-            <a class="tool-card" href="/gpt5_basic_page_v2.html" aria-label="Clean AdSense Template">
-                <span class="icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="16" rx="2"/></svg>
-                </span>
-                <div class="meta">
-                    <h4>Clean AdSense Template</h4>
-                    <p>Dark-mode friendly template showing policy-friendly ad placement.</p>
-                </div>
-            </a>
         </div>
 
         <p id="lastModified"><time id="lastModifiedTime" datetime=""></time></p>
@@ -206,7 +156,6 @@
     <footer class="site-footer">
         <div style="max-width:900px;margin:0 auto;">© 2025 Input Drive Security</div>
         <div style="margin-top:8px;"><a href="/contact.html">Contact</a></div>
-        <div id="ipInfo" role="status" aria-live="polite" style="font-size:0.85rem;margin-top:8px;min-height:20px;"></div>
     </footer>
 
     <script>
@@ -218,97 +167,6 @@
             timeEl.textContent = 'Page last edited: ' + dt.toLocaleString();
         })();
 
-        // Lazy-load geolocation only when footer is visible
-        (function lazyLoadGeolocation() {
-            const infoEl = document.getElementById('ipInfo');
-            if (!infoEl || !('IntersectionObserver' in window)) return;
-            
-            let loaded = false;
-            const observer = new IntersectionObserver((entries) => {
-                if (entries[0].isIntersecting && !loaded) {
-                    loaded = true;
-                    observer.disconnect();
-                    loadGeolocation();
-                }
-            }, { rootMargin: '50px' });
-            
-            observer.observe(infoEl);
-        })();
-        
-        function loadGeolocation() {
-            function tryApi(url, successCallback, errorCallback) {
-                fetch(url, { mode: 'cors', credentials: 'omit', cache: 'no-store' })
-                    .then(response => {
-                        if (!response.ok) throw new Error('API error');
-                        return response.json();
-                    })
-                    .then(data => successCallback(data))
-                    .catch(error => errorCallback());
-            }
-            
-            // HTML escaping function to prevent DOM-based injection attacks
-            function escapeHtml(text) {
-                const map = {
-                    '&': '&amp;',
-                    '<': '&lt;',
-                    '>': '&gt;',
-                    '"': '&quot;',
-                    "'": '&#039;'
-                };
-                return String(text || '').replace(/[&<>"']/g, m => map[m]);
-            }
-            
-            function displayLocationInfo(data) {
-                const city = escapeHtml(data.city || "Unknown");
-                const region = escapeHtml(data.region || "Unknown");
-                const country = escapeHtml(data.country_name || "Unknown");
-                const ipAddress = escapeHtml(data.ip || "Unknown");
-                const infoEl = document.getElementById("ipInfo");
-                if (!infoEl) return;
-                // Use textContent (no HTML) and avoid logging IP to console for privacy
-                infoEl.textContent = `Your location: ${city}, ${region}, ${country} — IP: ${ipAddress}`;
-            }
-            
-            // Try primary API: ipapi.co
-            tryApi(
-                "https://ipapi.co/json/",
-                displayLocationInfo,
-                function() {
-                    // Fallback to secondary API: ip-api.com
-                    tryApi(
-                        "https://ip-api.com/json/",
-                        function(data) {
-                            var mappedData = {
-                                ip: data.query,
-                                city: data.city,
-                                region: data.region,
-                                country_name: data.country
-                            };
-                            displayLocationInfo(mappedData);
-                        },
-                        function() {
-                            // Final fallback: ipwho.is
-                            tryApi(
-                                "https://ipwho.is/",
-                                function(data) {
-                                    var mappedData = {
-                                        ip: data.ip,
-                                        city: data.city,
-                                        region: data.region,
-                                        country_name: data.country_name
-                                    };
-                                    displayLocationInfo(mappedData);
-                                },
-                                function() {
-                                    const infoEl = document.getElementById("ipInfo");
-                                    if (infoEl) infoEl.textContent = 'Location lookup unavailable (check ad blocker or privacy settings)';
-                                }
-                            );
-                        }
-                    );
-                }
-            );
-        }
         /* Theme toggle: apply saved preference or follow system */
         (function themeInit(){
             const btn = document.getElementById('themeToggle');

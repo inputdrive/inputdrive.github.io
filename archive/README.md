@@ -25,6 +25,14 @@ This folder contains files that have been removed from the active site but prese
 
 ---
 
+### HTML Files (Archived: 2025-01-01 — Privacy migration)
+- **AdBlockerTestPage.html** — Ad blocker detection test page
+- **gpt5_basic_page.html** — GPT-5 landing page with AdSense layout
+- **gpt5_basic_page_v2.html** — Revised GPT-5 landing page with AdSense layout
+- **adsense_multiframe_test.html** — Multi-frame AdSense iframe test
+
+**Reason**: GitHub Pages Terms of Service prohibit monetization. Removed all Google AdSense integration, Google Analytics, and geolocation tracking as part of a privacy-first migration. These pages existed solely to support or test ad infrastructure.
+
 ## Restoration
 
 If needed, these files can be restored from this archive or from git history:

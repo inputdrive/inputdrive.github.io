@@ -6,7 +6,7 @@ Contact: https://inputdrivesecurity.us/contact.html
 /* TECH */
 Built with: HTML, CSS, Vanilla JS
 Hosting: GitHub Pages
-Analytics: Google Analytics 4 (G-LYXQD92WW5); Ads: AdSense (ca-pub-5393775575907084)
+Analytics: None; Privacy: No analytics, no ads, no third-party tracking
 
 /* ACCESSIBILITY */
 Accessibility: keyboard-focus, ARIA attributes, prefers-color-scheme support
