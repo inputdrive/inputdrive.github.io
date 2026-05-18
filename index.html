@@ -176,31 +176,6 @@
             const dt = new Date(document.lastModified || new Date());
             timeEl.setAttribute('datetime', dt.toISOString());
             timeEl.textContent = 'Page last edited: ' + dt.toLocaleString();
-        })();
-
-        /* Theme toggle: apply saved preference or follow system */
-        (function themeInit(){
-            const btn = document.getElementById('themeToggle');
-            if (!btn) return;
-            const apply = (theme) => {
-                if (theme === 'dark') {
-                    document.body.setAttribute('data-theme', 'dark');
-                    btn.setAttribute('aria-pressed', 'true');
-                } else {
-                    document.body.removeAttribute('data-theme');
-                    btn.setAttribute('aria-pressed', 'false');
-                }
-            };
-            const saved = localStorage.getItem('site-theme');
-            if (saved) apply(saved);
-            else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) apply('dark');
-
-            btn.addEventListener('click', () => {
-                const isDark = document.body.getAttribute('data-theme') === 'dark';
-                const next = isDark ? 'light' : 'dark';
-                apply(next);
-                localStorage.setItem('site-theme', next);
-            });
         })();    </script>
     <script src="/scripts/theme.js" defer></script>
 </body>
