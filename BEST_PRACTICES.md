@@ -65,11 +65,9 @@
 
 1. **Add ARIA Labels to Interactive Elements**
    ```html
-   <!-- Good (found in gpt5_basic_page.html) -->
-   <div class="ad-wrapper" aria-label="Advertisement">
-   
-   <!-- Missing in other pages -->
+   <!-- Good -->
    <button onclick="calculateMortgage()" aria-label="Calculate mortgage">Calculate</button>
+   <nav aria-label="Main navigation">...</nav>
    ```
 
 2. **Improve Form Accessibility**
