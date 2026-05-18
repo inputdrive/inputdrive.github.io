@@ -18,6 +18,7 @@ Welcome to my GitHub profile! I'm passionate about building tools, learning new 
 This repository hosts [inputdrivesecurity.us](https://inputdrivesecurity.us), a collection of web-based tools and calculators including:
 - Mortgage calculators (basic and advanced)
 - Security and privacy tools
+- An Ad Blocker Test Page for checking how blockers handle ad-like elements
 - Educational web applications
 
 ### Privacy First
