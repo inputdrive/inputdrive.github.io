@@ -1,19 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self'">
-        <meta name="description" content="Basic HTML skeleton for demos and small pages.">
-        <link rel="canonical" href="https://inputdrivesecurity.us/basic.html">
-        <link rel="icon" href="/assets/logo.svg" type="image/svg+xml">
-        <title>My Web Page</title>
-        <link rel="preload" href="/stylesheet.css" as="style" onload="this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="/stylesheet.css"></noscript>
-    <meta name="robots" content="noindex">
-</head>
-<body>
-<a href="#main-content" class="skip-link">Skip to main content</a>
+HEADER_HTML = '''    <a href="#main-content" class="skip-link">Skip to main content</a>
     <header class="site-header">
         <div class="header-inner">
             <a href="/" class="brand" aria-label="Input Drive Security home">
@@ -41,17 +26,9 @@
             </div>
         </div>
     </header>
+'''
 
-    <main id="main-content" class="wrap" role="main">
-        <h1>Welcome to My Web Page</h1>
-        <p>This is a basic HTML skeleton.</p>
-        <p>Use this as a starting point for experiments and small demos.</p>
-
-        <script src="your-script.js" async></script>
-        <p><a href="/tools.html">Back to tools</a></p>
-    </main>
-
-    <footer class="site-footer">
+FOOTER_HTML = '''    <footer class="site-footer">
         <div class="footer-inner">
             <p>© 2026 Greg Gutman · Input Drive Security</p>
             <p class="footer-links">
@@ -68,6 +45,12 @@
     </footer>
     <script src="/scripts/theme.js" defer></script>
     <script src="/scripts/last-modified.js" defer></script>
+'''
 
-</body>
-</html>
+HEAD_EXTRAS = '''    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="theme-color" content="#0969da">
+    <meta name="color-scheme" content="light dark">
+    <link rel="icon" href="/assets/logo.svg" type="image/svg+xml">
+    <link rel="preload" href="/stylesheet.css" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/stylesheet.css"></noscript>
+'''

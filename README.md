@@ -1,26 +1,42 @@
-# Hi,  I'm   G r e g 👋
+# Input Drive Security
 
-Welcome to my GitHub profile! I'm passionate about building tools, learning new technologies, and sharing knowledge with the developer community.
+Independent security consulting site for **Greg Gutman**. The live domain is [inputdrivesecurity.us](https://inputdrivesecurity.us). `inputdrivesecurity.com` and `inputdrivesecurity.net` 301 to that host.
 
-## About Me
+This is a person, not a company listing. The site exists to take **contract** (federal programs and primes) and **ad-hoc** (commercial, scoped) work inquiries.
 
-- 👀 **Interested in:** Technology, Information Securiy, Data Analytics, and open-source projects
-- 🌱 **Currently learning:** Python3, AI, Surfing, Fishing, Cooking, Boating, and full-stack development using AI tools
-- 💞️ **Looking to collaborate on:** Anything tech-related,let's build something, or just pontificate about it
-- 📫 **How to reach me:**
-  - Email: inputdrive AT gmail.com
-  - WhatsApp: [+1 (703) 957-8321](https://wa.me/17039578321)
-  - LinkedIn: [linkedin.com/in/greggutman](https://linkedin.com/in/greggutman)
-  - X (Twitter): [@greg_inputdrive](https://x.com/greg_inputdrive)
+## Contact
 
-## Featured Projects
+- Email: [info@inputdrivesecurity.us](mailto:info@inputdrivesecurity.us)
+- WhatsApp: [+1 703 957 8321](https://wa.me/17039578321)
 
-This repository hosts [inputdrivesecurity.us](https://inputdrivesecurity.us), a collection of web-based tools and calculators including:
-- Mortgage calculators (basic and advanced)
-- Security and privacy tools
-- An Ad Blocker Test Page for checking how blockers handle ad-like elements
-- Educational web applications
+There is no sponsorship or Buy Me a Coffee flow.
 
-### Privacy First
+## Run locally
 
-This site is privacy-focused: no analytics, no ads, no tracking. All processing happens client-side.
+The site is static HTML, CSS, and a little JavaScript. From this directory:
+
+```bash
+python3 -m http.server 43147 --bind 127.0.0.1
+```
+
+Then open `http://127.0.0.1:43147/`.
+
+## Deploy
+
+This tree is meant to replace the GitHub Pages root of `inputdrive/inputdrive.github.io`. Copy or merge onto that repository’s `main` branch. Keep the `CNAME` file (`inputdrivesecurity.us`).
+
+## Privacy
+
+No ads, no analytics, no third-party tracking. `localStorage` is used only for the light/dark theme preference. The contact form never posts to a server; it opens `mailto:` or WhatsApp on the visitor’s device.
+
+## Pages
+
+| Path | Role |
+| --- | --- |
+| `/` | Offer and two buyer tracks |
+| `/services.html` | What can be hired |
+| `/about.html` | Bio and profiles |
+| `/contact.html` | Email + WhatsApp |
+| `/tools.html` | Demos and lab links |
+
+Older calculator and experiment URLs still resolve so existing bookmarks do not 404.
