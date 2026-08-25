@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="A small random test/demo page hosted on GitHub Pages.">
-  <link rel="canonical" href="https://inputdrivesecurity.us/random.html">
-  <link rel="icon" href="/assets/logo.svg" type="image/svg+xml">
-  <title>"Random" Test Page</title>
-  <link rel="preload" href="/stylesheet.css" as="style" onload="this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="/stylesheet.css"></noscript>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Lab page that mints five on-site random URLs per load. Each URL branches five more times, then stops at depth five.">
     <meta name="robots" content="noindex">
+    <meta name="theme-color" content="#0969da">
+    <meta name="color-scheme" content="light dark">
+    <link rel="canonical" href="https://inputdrivesecurity.us/random.html">
+    <link rel="icon" href="/assets/logo.svg" type="image/svg+xml">
+    <title>Random trail | Input Drive Security</title>
+    <link rel="stylesheet" href="/stylesheet.css">
 </head>
 <body>
-<a href="#main-content" class="skip-link">Skip to main content</a>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <header class="site-header">
         <div class="header-inner">
             <a href="/" class="brand" aria-label="Input Drive Security home">
@@ -41,15 +43,29 @@
         </div>
     </header>
 
-  <main id="main-content" class="wrap" role="main">
-    <h1>Hello World</h1>
-    <h2>Wow this is a "random" page.</h2>
-    <p>also hosted with GitHub Pages.</p>
-    <p>convert the last modified property into a date object:</p>
-    <p id="lastModified"><time id="lastModifiedTime" datetime=""></time></p>
-    
-    <p><a href="/tools.html">Back to tools</a></p>
-  </main>
+    <main id="main-content" class="wrap" role="main">
+        <p class="kicker">Lab</p>
+        <h1>Random trail</h1>
+        <p class="lede">On load this page mints five URLs on this site. Open one and it mints five more. That repeats until you are five hops from the start, then the branch stops. Same node always yields the same five children, so a URL is shareable.</p>
+
+        <section class="panel" aria-labelledby="trail-heading">
+            <h2 id="trail-heading">This node</h2>
+            <p id="trail-status" class="trail-status">Building five URLs…</p>
+            <p id="trail-crumbs" class="trail-crumbs" aria-label="Trail so far"></p>
+            <noscript>
+                <p>This trail needs JavaScript. Nothing is fetched from other sites; the URLs stay on this domain.</p>
+            </noscript>
+            <ol id="trail-links" class="trail-list"></ol>
+            <p id="trail-end" class="trail-end small" hidden>Five hops is the cap, so these five addresses are listed but do not open another layer. Start a new trail if you want a different tree.</p>
+            <div class="cta-row">
+                <a id="trail-restart" class="btn" href="/random.html">New trail</a>
+                <a class="btn btn-secondary" href="/tools.html">Back to tools</a>
+            </div>
+        </section>
+
+        <p class="small">The links are random identifiers on <code>random.html</code>, not random sites on the internet. The page stays <code>noindex</code> so crawlers do not walk the tree.</p>
+        <p id="lastModified"><time id="lastModifiedTime" datetime=""></time></p>
+    </main>
 
     <footer class="site-footer">
         <div class="footer-inner">
@@ -68,6 +84,6 @@
     </footer>
     <script src="/scripts/theme.js" defer></script>
     <script src="/scripts/last-modified.js" defer></script>
-
+    <script src="/scripts/random-trail.js" defer></script>
 </body>
 </html>
