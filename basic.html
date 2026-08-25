@@ -3,14 +3,13 @@
 <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self'">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; connect-src 'self'">
         <meta name="description" content="Basic HTML skeleton for demos and small pages.">
         <link rel="canonical" href="https://inputdrivesecurity.us/basic.html">
         <link rel="icon" href="/assets/logo.svg" type="image/svg+xml">
-        <title>My Web Page</title>
-        <link rel="preload" href="/stylesheet.css" as="style" onload="this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="/stylesheet.css"></noscript>
-    <meta name="robots" content="noindex">
+        <title>Basic skeleton | Input Drive Security</title>
+        <link rel="stylesheet" href="/stylesheet.css">
+        <meta name="robots" content="noindex">
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -43,11 +42,8 @@
     </header>
 
     <main id="main-content" class="wrap" role="main">
-        <h1>Welcome to My Web Page</h1>
-        <p>This is a basic HTML skeleton.</p>
-        <p>Use this as a starting point for experiments and small demos.</p>
-
-        <script src="your-script.js" async></script>
+        <h1>Basic HTML skeleton</h1>
+        <p>This is a starting point for experiments and small demos. Header, footer, and theme match the rest of the site.</p>
         <p><a href="/tools.html">Back to tools</a></p>
     </main>
 
