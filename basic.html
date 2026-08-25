@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; connect-src 'self'">
-        <meta name="description" content="Basic HTML skeleton for demos and small pages.">
-        <link rel="canonical" href="https://inputdrivesecurity.us/basic.html">
-        <link rel="icon" href="/assets/logo.svg" type="image/svg+xml">
-        <title>Basic skeleton | Input Drive Security</title>
-        <link rel="stylesheet" href="/stylesheet.css">
-        <meta name="robots" content="noindex">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; connect-src 'self' https://api.cdnjs.com; base-uri 'self'; form-action 'self'">
+    <meta name="description" content="Look up cdnjs libraries and copy versioned URLs with SRI hashes. Nothing from the CDN is executed on this page.">
+    <meta name="theme-color" content="#0969da">
+    <meta name="color-scheme" content="light dark">
+    <link rel="canonical" href="https://inputdrivesecurity.us/basic.html">
+    <link rel="icon" href="/assets/logo.svg" type="image/svg+xml">
+    <title>cdnjs lookup | Input Drive Security</title>
+    <link rel="stylesheet" href="/stylesheet.css">
 </head>
 <body>
-<a href="#main-content" class="skip-link">Skip to main content</a>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <header class="site-header">
         <div class="header-inner">
             <a href="/" class="brand" aria-label="Input Drive Security home">
@@ -42,9 +43,55 @@
     </header>
 
     <main id="main-content" class="wrap" role="main">
-        <h1>Basic HTML skeleton</h1>
-        <p>This is a starting point for experiments and small demos. Header, footer, and theme match the rest of the site.</p>
+        <p class="kicker">Lab · cdnjs</p>
+        <h1>Find a library. Copy a pinned snippet.</h1>
+        <p class="lede">Same job as <a href="https://cdnjs.com" rel="noopener noreferrer">cdnjs.com</a>, scoped for how I actually use it: search the catalog, then copy a versioned URL with an SRI hash. This page never executes CDN JavaScript. It only talks to <code>api.cdnjs.com</code>.</p>
+
+        <form id="cdn-form" class="cdn-search" role="search">
+            <label for="cdn-query">Search libraries</label>
+            <input id="cdn-query" name="q" type="search" autocomplete="off" spellcheck="false" placeholder="Search libraries on cdnjs — try DOMPurify, dayjs, alpinejs…" required minlength="1">
+            <button class="btn" type="submit">Search</button>
+        </form>
+
+        <div class="cdn-stats" aria-label="How this page works">
+            <div class="panel">
+                <p class="eyebrow">Catalog</p>
+                <p>Queries the public cdnjs API. Thousands of front-end libraries, no account.</p>
+            </div>
+            <div class="panel">
+                <p class="eyebrow">Integrity</p>
+                <p>Snippets include <code>integrity</code> and <code>crossorigin</code> when cdnjs has a hash.</p>
+            </div>
+            <div class="panel">
+                <p class="eyebrow">Trust boundary</p>
+                <p>Results are rendered as text. Nothing from cdnjs.cloudflare.com is loaded into this document.</p>
+            </div>
+        </div>
+
+        <p class="small">Starting points</p>
+        <div class="cdn-chips" aria-label="Suggested libraries">
+            <button type="button" class="cdn-chip" data-cdn-chip="dompurify">DOMPurify</button>
+            <button type="button" class="cdn-chip" data-cdn-chip="dayjs">dayjs</button>
+            <button type="button" class="cdn-chip" data-cdn-chip="alpinejs">Alpine.js</button>
+            <button type="button" class="cdn-chip" data-cdn-chip="highlight.js">highlight.js</button>
+            <button type="button" class="cdn-chip" data-cdn-chip="normalize">normalize.css</button>
+            <button type="button" class="cdn-chip" data-cdn-chip="font-awesome">Font Awesome</button>
+        </div>
+
+        <p id="cdn-status" class="cdn-status" aria-live="polite">Type a library name, or pick a starting point.</p>
+        <p id="cdn-live" class="sr-only" aria-live="polite"></p>
+
+        <div id="cdn-empty" class="panel">
+            <h2>Empty on purpose until you search</h2>
+            <p>cdnjs is a search box first. This page follows that: no default library is injected, so a forgotten include cannot change the consulting site.</p>
+            <p class="small">Need this kind of SRI lookup wired into a build? <a href="/contact.html">That is contract and ad-hoc work I take.</a></p>
+        </div>
+
+        <div id="cdn-results" class="cdn-results" aria-live="polite"></div>
+
+        <p class="small">Data from the <a href="https://cdnjs.com/api" rel="noopener noreferrer">cdnjs API</a>. cdnjs is operated by Cloudflare, not by Input Drive Security.</p>
         <p><a href="/tools.html">Back to tools</a></p>
+        <p id="lastModified"><time id="lastModifiedTime" datetime=""></time></p>
     </main>
 
     <footer class="site-footer">
@@ -64,6 +111,6 @@
     </footer>
     <script src="/scripts/theme.js" defer></script>
     <script src="/scripts/last-modified.js" defer></script>
-
+    <script src="/scripts/cdnjs-lookup.js" defer></script>
 </body>
 </html>

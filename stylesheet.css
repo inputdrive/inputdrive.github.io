@@ -639,3 +639,93 @@ textarea { min-height: 120px; resize: vertical; }
     margin-left: auto;
     margin-right: auto;
 }
+
+.cdn-search {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+    align-items: end;
+    margin: 0 0 24px;
+}
+.cdn-search label {
+    grid-column: 1 / -1;
+    margin-bottom: 0;
+}
+.cdn-search input[type="search"] {
+    display: block;
+    width: 100%;
+    font: inherit;
+    font-size: 1.05rem;
+    padding: 14px 16px;
+    border-radius: 12px;
+    color: var(--color-text);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+}
+.cdn-search .btn { height: 48px; }
+.cdn-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin: 0 0 22px;
+}
+.cdn-stats .panel p:last-child { margin-bottom: 0; }
+.cdn-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 0 18px;
+}
+.cdn-chip {
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text);
+    border-radius: 999px;
+    padding: 6px 12px;
+    font: inherit;
+    font-weight: 650;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+.cdn-chip:hover { border-color: var(--color-primary); }
+.cdn-status { color: var(--color-muted); margin: 0 0 14px; }
+.cdn-results { display: grid; gap: 14px; margin-bottom: 24px; }
+.cdn-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    padding: 18px;
+}
+.cdn-card-head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+.cdn-card-head h3 { margin: 0; }
+.cdn-version {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-primary);
+}
+.cdn-snippet {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    padding: 12px;
+    overflow-x: auto;
+    font-size: 0.82rem;
+    line-height: 1.45;
+    margin: 0 0 12px;
+}
+.cdn-snippet code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    white-space: pre-wrap;
+}
+
+@media (max-width: 800px) {
+    .cdn-search { grid-template-columns: 1fr; }
+    .cdn-stats { grid-template-columns: 1fr; }
+}
