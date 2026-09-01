@@ -373,6 +373,7 @@ textarea:focus-visible {
 .cred-list li { margin: 0; }
 .cred-list strong { display: block; }
 .cred-list .small { margin: 0; }
+.cred-list + .small { margin-top: 14px; }
 .eyebrow {
     font-size: 0.78rem;
     font-weight: 700;
@@ -381,8 +382,6 @@ textarea:focus-visible {
     color: var(--color-muted);
     margin-bottom: 6px;
 }
-.eyebrow-follow { margin-top: 18px; }
-.eyebrow-follow + .small { margin: 0 0 10px; }
 
 .cards-grid {
     display: grid;
