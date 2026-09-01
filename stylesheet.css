@@ -373,6 +373,7 @@ textarea:focus-visible {
 .cred-list li { margin: 0; }
 .cred-list strong { display: block; }
 .cred-list .small { margin: 0; }
+.cred-list + .small { margin-top: 14px; }
 .eyebrow {
     font-size: 0.78rem;
     font-weight: 700;

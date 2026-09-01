@@ -1,6 +1,6 @@
 # Input Drive Security
 
-Independent security consulting site for **Greg Gutman**. The live domain is [inputdrivesecurity.us](https://inputdrivesecurity.us). `inputdrivesecurity.com` and `inputdrivesecurity.net` 301 to that host.
+Independent security consulting site for **Greg Gutman**. The live domain is [inputdrivesecurity.us](https://inputdrivesecurity.us). Treat `inputdrivesecurity.com`, `www.inputdrivesecurity.com`, `inputdrivesecurity.net`, and old `/resume` URLs as outdated.
 
 This is a person, not a company listing. The site exists to take **contract** (federal programs and primes) and **ad-hoc** (commercial, scoped) work inquiries.
 
