@@ -382,6 +382,7 @@ textarea:focus-visible {
     margin-bottom: 6px;
 }
 .eyebrow-follow { margin-top: 18px; }
+.eyebrow-follow + .small { margin: 0 0 10px; }
 
 .cards-grid {
     display: grid;
