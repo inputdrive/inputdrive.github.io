@@ -381,6 +381,7 @@ textarea:focus-visible {
     color: var(--color-muted);
     margin-bottom: 6px;
 }
+.eyebrow-follow { margin-top: 18px; }
 
 .cards-grid {
     display: grid;
