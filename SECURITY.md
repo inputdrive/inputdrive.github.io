@@ -1,29 +1,13 @@
-# Security Policy Test
+# Security
 
-## Supported Versions DRAFT
+Report security issues to **info@inputdrivesecurity.us** (put `security` in the subject) or WhatsApp +1 703 957 8321.
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+No public bug bounty. We can agree on a channel after first contact.
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+## Privacy
 
-## Reporting a Vulnerability or Issues
+This site collects no analytics and serves no ads.
 
-email inputdrive+security@gmail.com
-no pubkey needed, can agree on one after initial contact
-
-comment on the code directly
-
-## Privacy & Data Collection
-
-This site collects no data:
-- No analytics (Google Analytics removed)
-- No advertising (AdSense removed)
-- No third-party tracking scripts
-- No geolocation or IP lookups
-- Only `localStorage` is used, solely to remember the user's theme preference (light/dark)
+- Theme preference may be stored in `localStorage`
+- The contact form does not post to a server; it opens the visitor’s mail client or WhatsApp
+- The IP lookup demo calls a third-party API only when that page is opened

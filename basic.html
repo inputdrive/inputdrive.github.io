@@ -1,47 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self'">
-        <meta name="description" content="Basic HTML skeleton for demos and small pages.">
-        <link rel="canonical" href="https://inputdrivesecurity.us/basic.html">
-        <link rel="icon" href="/assets/logo.svg" type="image/svg+xml">
-        <title>My Web Page</title>
-        <link rel="preload" href="/stylesheet.css" as="style" onload="this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="/stylesheet.css"></noscript>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; connect-src 'self' https://api.cdnjs.com; base-uri 'self'; form-action 'self'">
+    <meta name="description" content="Look up cdnjs libraries and copy versioned URLs with SRI hashes. Nothing from the CDN is executed on this page.">
+    <meta name="theme-color" content="#0969da">
+    <meta name="color-scheme" content="light dark">
+    <link rel="canonical" href="https://inputdrivesecurity.us/basic.html">
+    <link rel="icon" href="/assets/logo.svg" type="image/svg+xml">
+    <title>cdnjs lookup | Input Drive Security</title>
+    <link rel="stylesheet" href="/stylesheet.css">
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
     <header class="site-header">
         <div class="header-inner">
-            <strong>Input Drive Security</strong>
-            <nav class="main-nav" aria-label="Main navigation"><a href="/index.html">Index</a></nav>
+            <a href="/" class="brand" aria-label="Input Drive Security home">
+                <img src="/assets/logo.svg" alt="" width="36" height="36" class="brand-logo">
+                <span class="brand-text">
+                    <strong>Input Drive Security</strong>
+                    <span class="brand-tag">Independent consulting</span>
+                </span>
+            </a>
+            <nav class="main-nav" aria-label="Primary">
+                <a href="/" data-nav="home">Home</a>
+                <a href="/services.html" data-nav="services">Services</a>
+                <a href="/about.html" data-nav="about">About</a>
+                <a href="/tools.html" data-nav="tools">Tools</a>
+                <a href="/contact.html" data-nav="contact" class="nav-cta">Contact</a>
+            </nav>
+            <div class="header-actions">
+                <a class="header-wa" href="https://wa.me/17039578321" target="_blank" rel="noopener noreferrer">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.52 3.48A11.86 11.86 0 0012.06 0C5.5 0 .16 5.33.16 11.9c0 2.1.55 4.15 1.6 5.96L0 24l6.3-1.65a11.9 11.9 0 005.75 1.47h.01c6.56 0 11.9-5.34 11.9-11.91 0-3.18-1.24-6.17-3.44-8.43zM12.06 21.8h-.01a9.9 9.9 0 01-5.04-1.38l-.36-.21-3.74.98 1-3.64-.24-.37a9.86 9.86 0 01-1.51-5.28c0-5.45 4.44-9.88 9.9-9.88 2.64 0 5.13 1.03 7 2.9a9.83 9.83 0 012.9 6.98c0 5.45-4.44 9.9-9.9 9.9zm5.43-7.4c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48a8.97 8.97 0 01-1.66-2.06c-.17-.3 0-.46.13-.6.13-.13.3-.35.44-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.5h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.48.71.3 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35z"/></svg>
+                    <span>WhatsApp</span>
+                </a>
+                <button id="themeToggle" class="theme-toggle" aria-pressed="false" aria-label="Toggle light and dark mode">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" /></svg>
+                </button>
+            </div>
         </div>
     </header>
 
-    <main id="main-content" role="main" style="max-width:900px;margin:28px auto;padding:0 16px;">
-        <h1>Welcome to My Web Page</h1>
-        <p>This is a basic HTML skeleton.</p>
-        <p>Use this as a starting point for experiments and small demos.</p>
+    <main id="main-content" class="wrap" role="main">
+        <p class="kicker">Lab · cdnjs</p>
+        <h1>Find a library. Copy a pinned snippet.</h1>
+        <p class="lede">Same job as <a href="https://cdnjs.com" rel="noopener noreferrer">cdnjs.com</a>, scoped for how I actually use it: search the catalog, then copy a versioned URL with an SRI hash. This page never executes CDN JavaScript. It only talks to <code>api.cdnjs.com</code>.</p>
 
-        <script src="your-script.js" async></script>
-        <p><a href="/index.html">Back to Index</a></p>
+        <form id="cdn-form" class="cdn-search" role="search">
+            <label for="cdn-query">Search libraries</label>
+            <input id="cdn-query" name="q" type="search" autocomplete="off" spellcheck="false" placeholder="Search libraries on cdnjs — try DOMPurify, dayjs, alpinejs…" required minlength="1">
+            <button class="btn" type="submit">Search</button>
+        </form>
+
+        <div class="cdn-stats" aria-label="How this page works">
+            <div class="panel">
+                <p class="eyebrow">Catalog</p>
+                <p>Queries the public cdnjs API. Thousands of front-end libraries, no account.</p>
+            </div>
+            <div class="panel">
+                <p class="eyebrow">Integrity</p>
+                <p>Snippets include <code>integrity</code> and <code>crossorigin</code> when cdnjs has a hash.</p>
+            </div>
+            <div class="panel">
+                <p class="eyebrow">Trust boundary</p>
+                <p>Results are rendered as text. Nothing from cdnjs.cloudflare.com is loaded into this document.</p>
+            </div>
+        </div>
+
+        <p class="small">Starting points</p>
+        <div class="cdn-chips" aria-label="Suggested libraries">
+            <button type="button" class="cdn-chip" data-cdn-chip="dompurify">DOMPurify</button>
+            <button type="button" class="cdn-chip" data-cdn-chip="dayjs">dayjs</button>
+            <button type="button" class="cdn-chip" data-cdn-chip="alpinejs">Alpine.js</button>
+            <button type="button" class="cdn-chip" data-cdn-chip="highlight.js">highlight.js</button>
+            <button type="button" class="cdn-chip" data-cdn-chip="normalize">normalize.css</button>
+            <button type="button" class="cdn-chip" data-cdn-chip="font-awesome">Font Awesome</button>
+        </div>
+
+        <p id="cdn-status" class="cdn-status" aria-live="polite">Type a library name, or pick a starting point.</p>
+        <p id="cdn-live" class="sr-only" aria-live="polite"></p>
+
+        <div id="cdn-empty" class="panel">
+            <h2>Empty on purpose until you search</h2>
+            <p>cdnjs is a search box first. This page follows that: no default library is injected, so a forgotten include cannot change the consulting site.</p>
+            <p class="small">Need this kind of SRI lookup wired into a build? <a href="/contact.html">That is contract and ad-hoc work I take.</a></p>
+        </div>
+
+        <div id="cdn-results" class="cdn-results" aria-live="polite"></div>
+
+        <p class="small">Data from the <a href="https://cdnjs.com/api" rel="noopener noreferrer">cdnjs API</a>. cdnjs is operated by Cloudflare, not by Input Drive Security.</p>
+        <p><a href="/tools.html">Back to tools</a></p>
+        <p id="lastModified"><time id="lastModifiedTime" datetime=""></time></p>
     </main>
 
     <footer class="site-footer">
-        <div style="max-width:900px;margin:0 auto;">© 2025 Input Drive Security</div>
-        <p id="lastModified"><time id="lastModifiedTime" datetime=""></time></p>
+        <div class="footer-inner">
+            <p>© 2026 Greg Gutman · Input Drive Security</p>
+            <p class="footer-links">
+                <a href="mailto:info@inputdrivesecurity.us">info@inputdrivesecurity.us</a>
+                ·
+                <a href="https://wa.me/17039578321">WhatsApp</a>
+                ·
+                <a href="https://linkedin.com/in/greggutman/">LinkedIn</a>
+                ·
+                <a href="https://github.com/inputdrive">GitHub</a>
+            </p>
+            <p class="small">Canonical site: inputdrivesecurity.us. Independent security consulting by Greg Gutman.</p>
+        </div>
     </footer>
-
-    <script>
-        (function updateLastModified(){
-            const timeEl = document.getElementById('lastModifiedTime');
-            if (!timeEl) return;
-            const dt = new Date(document.lastModified || new Date());
-            timeEl.setAttribute('datetime', dt.toISOString());
-            timeEl.textContent = 'Page last edited: ' + dt.toLocaleString();
-        })();
-    </script>
+    <script src="/scripts/theme.js" defer></script>
+    <script src="/scripts/last-modified.js" defer></script>
+    <script src="/scripts/cdnjs-lookup.js" defer></script>
 </body>
 </html>
