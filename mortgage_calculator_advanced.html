@@ -4,11 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Advanced mortgage calculator with optional extra payments and printable results.">
+    <meta name="color-scheme" content="light dark">
     <link rel="canonical" href="https://inputdrivesecurity.us/mortgage_calculator_advanced.html">
     <link rel="icon" href="/assets/logo.svg" type="image/svg+xml">
     <title>Mortgage Calculator Advanced</title>
+    <script>
+        (function(){try{
+            var t = localStorage.getItem('site-theme');
+            if (t !== 'dark' && t !== 'light') {
+                t = (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+            }
+            document.documentElement.setAttribute('data-theme', t);
+            document.documentElement.style.colorScheme = t;
+        }catch(e){}})();
+    </script>
     <link rel="stylesheet" href="/stylesheet.css">
 <script>
+        function money(n) {
+            return '$' + n.toFixed(2);
+        }
+
+        function showCalcError(message) {
+            document.getElementById('result').innerHTML = '<p class="calc-error">' + message + '</p>';
+        }
+
+        function calcRow(label, valueHtml, extraClass) {
+            return '<tr' + (extraClass ? ' class="' + extraClass + '"' : '') + '><td><strong>' + label + '</strong></td><td class="calc-value">' + valueHtml + '</td></tr>';
+        }
+
         function calculateLoan() {
             var loanAmount = parseFloat(document.getElementById("loanAmount").value);
             var interestRate = parseFloat(document.getElementById("interestRate").value);
@@ -17,23 +40,20 @@
 
             if (!isFinite(loanAmount) || !isFinite(interestRate) || !isFinite(periodYears) ||
                 loanAmount <= 0 || interestRate < 0 || periodYears <= 0 || additionalPayment < 0) {
-                document.getElementById("result").innerHTML = "<p style='color:#b00020;'><strong>Please enter valid positive values.</strong></p>";
+                showCalcError('Please enter valid positive values.');
                 return;
             }
 
             var monthlyInterestRate = interestRate / 100 / 12;
             var totalMonths = Math.round(periodYears * 12);
 
-            // Calculate base monthly payment (amortization formula)
             var monthlyPayment = monthlyInterestRate === 0
                 ? loanAmount / totalMonths
                 : (loanAmount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -totalMonths));
-            
-            // Calculate total payment without extra payments
+
             var totalPayment = monthlyPayment * totalMonths;
             var totalInterest = totalPayment - loanAmount;
 
-            // Simulate amortization with extra payments to get real payoff timeline/interest
             var remainingBalance = loanAmount;
             var actualTotalPaid = 0;
             var actualMonths = 0;
@@ -44,7 +64,7 @@
                 var principalPayment = paymentThisMonth - monthlyInterest;
 
                 if (principalPayment <= 0) {
-                    document.getElementById("result").innerHTML = "<p style='color:#b00020;'><strong>Payment is too low to reduce principal. Increase payment amount.</strong></p>";
+                    showCalcError('Payment is too low to reduce principal. Increase payment amount.');
                     return;
                 }
 
@@ -60,24 +80,22 @@
 
             var totalWithExtraPayments = actualTotalPaid;
             var totalInterestWithExtra = totalWithExtraPayments - loanAmount;
-            var interestSavedFromExtra = totalInterest - totalInterestWithExtra;
-            var yearsSaved = (totalMonths - actualMonths) / 12;
+            var interestSavedFromExtra = Math.max(totalInterest - totalInterestWithExtra, 0);
+            var yearsSaved = Math.max((totalMonths - actualMonths) / 12, 0);
 
-            var result = "<table style='width:100%;border-collapse:collapse;'>";
-            result += "<tr style='border-bottom:1px solid #ddd;'><td><strong>Loan Amount:</strong></td><td style='text-align:right;'>$" + loanAmount.toFixed(2) + "</td></tr>";
-            result += "<tr style='border-bottom:1px solid #ddd;'><td><strong>Annual Interest Rate:</strong></td><td style='text-align:right;'>" + interestRate.toFixed(2) + "%</td></tr>";
-            result += "<tr style='border-bottom:1px solid #ddd;'><td><strong>Loan Period:</strong></td><td style='text-align:right;'>" + periodYears.toFixed(2) + " years</td></tr>";
-            result += "<tr style='border-bottom:2px solid #333;'><td><strong>Base Monthly Payment:</strong></td><td style='text-align:right;'><strong>$" + monthlyPayment.toFixed(2) + "</strong></td></tr>";
-            
-            result += "<tr style='border-bottom:1px solid #ddd;'><td><strong>Additional Monthly Payment:</strong></td><td style='text-align:right;'>$" + additionalPayment.toFixed(2) + "</td></tr>";
-            result += "<tr style='border-bottom:1px solid #ddd;'><td><strong>Total Monthly Payment:</strong></td><td style='text-align:right;'><strong>$" + (monthlyPayment + additionalPayment).toFixed(2) + "</strong></td></tr>";
-            result += "<tr style='border-bottom:2px solid #333;'><td><strong>Total Amount Paid:</strong></td><td style='text-align:right;'><strong>$" + totalWithExtraPayments.toFixed(2) + "</strong></td></tr>";
-            
-            result += "<tr style='border-bottom:1px solid #ddd;'><td><strong>Total Interest (without extra payments):</strong></td><td style='text-align:right;'>$" + totalInterest.toFixed(2) + "</td></tr>";
-            result += "<tr style='border-bottom:1px solid #ddd;'><td><strong>Interest Saved by Extra Payments:</strong></td><td style='text-align:right;color:green;'><strong>$" + Math.max(interestSavedFromExtra, 0).toFixed(2) + "</strong></td></tr>";
-            result += "<tr style='border-bottom:1px solid #ddd;'><td><strong>Net Total Interest Paid:</strong></td><td style='text-align:right;'><strong>$" + totalInterestWithExtra.toFixed(2) + "</strong></td></tr>";
-            result += "<tr><td><strong>Estimated Time Saved:</strong></td><td style='text-align:right;'><strong>" + Math.max(yearsSaved, 0).toFixed(2) + " years</strong></td></tr>";
-            result += "</table>";
+            var result = '<table>';
+            result += calcRow('Loan Amount:', money(loanAmount));
+            result += calcRow('Annual Interest Rate:', interestRate.toFixed(2) + '%');
+            result += calcRow('Loan Period:', periodYears.toFixed(2) + ' years');
+            result += calcRow('Base Monthly Payment:', '<strong>' + money(monthlyPayment) + '</strong>', 'calc-emphasis');
+            result += calcRow('Additional Monthly Payment:', money(additionalPayment));
+            result += calcRow('Total Monthly Payment:', '<strong>' + money(monthlyPayment + additionalPayment) + '</strong>');
+            result += calcRow('Total Amount Paid:', '<strong>' + money(totalWithExtraPayments) + '</strong>', 'calc-emphasis');
+            result += calcRow('Total Interest (without extra payments):', money(totalInterest));
+            result += calcRow('Interest Saved by Extra Payments:', '<strong class="calc-positive">' + money(interestSavedFromExtra) + '</strong>');
+            result += calcRow('Net Total Interest Paid:', '<strong>' + money(totalInterestWithExtra) + '</strong>');
+            result += calcRow('Estimated Time Saved:', '<strong class="calc-positive">' + yearsSaved.toFixed(2) + ' years</strong>');
+            result += '</table>';
 
             document.getElementById("result").innerHTML = result;
         }
@@ -124,26 +142,30 @@
             <li><strong>Loan Period:</strong> The total number of years to repay the loan</li>
             <li><strong>Additional Monthly Payment:</strong> Any extra amount paid each month toward principal (optional)</li>
         </ul>
-        
-        <label for="loanAmount">Loan Amount ($):</label>
-        <input type="number" id="loanAmount" placeholder="e.g., 300000" required><br>
-        
-        <label for="interestRate">Annual Interest Rate (%):</label>
-        <input type="number" id="interestRate" placeholder="e.g., 6.5" step="0.01" required><br>
-        
-        <label for="periodYears">Loan Period (in years):</label>
-        <input type="number" id="periodYears" placeholder="e.g., 30" required><br>
-        
-        <label for="additionalPayment">Additional Monthly Payment ($) (optional):</label>
-        <input type="number" id="additionalPayment" placeholder="e.g., 200" min="0"><br>
-        
-        <button onclick="calculateLoan()">Calculate</button>
-        <button onclick="window.print()" style="margin-left:8px;">Print Results</button>
-        
+
+        <div class="calc-form">
+            <label for="loanAmount">Loan Amount ($):</label>
+            <input type="number" id="loanAmount" placeholder="e.g., 300000" required>
+
+            <label for="interestRate">Annual Interest Rate (%):</label>
+            <input type="number" id="interestRate" placeholder="e.g., 6.5" step="0.01" required>
+
+            <label for="periodYears">Loan Period (in years):</label>
+            <input type="number" id="periodYears" placeholder="e.g., 30" required>
+
+            <label for="additionalPayment">Additional Monthly Payment ($) (optional):</label>
+            <input type="number" id="additionalPayment" placeholder="e.g., 200" min="0">
+        </div>
+
+        <div class="calc-actions">
+            <button type="button" class="btn" onclick="calculateLoan()">Calculate</button>
+            <button type="button" class="btn btn-secondary" onclick="window.print()">Print Results</button>
+        </div>
+
         <h2>Results:</h2>
-        <div id="result" style="margin:20px 0; padding:15px; background:#f9f9f9; border-radius:6px;"></div>
-        
-        <hr style="margin:20px 0; border:none; border-top:1px solid #ddd;">
+        <div id="result" class="calc-result"><p class="muted">Results will appear here after you calculate.</p></div>
+
+        <hr class="calc-divider">
         
         <h3>How Extra Payments Work:</h3>
         <p>When you pay extra each month, that amount goes directly toward reducing the principal balance. Since interest is calculated on the remaining balance, paying extra:</p>
@@ -154,7 +176,7 @@
         </ul>
         
         <h3>⚠️ Important Disclaimers:</h3>
-        <ul style="font-size:0.95em; color:#555;">
+        <ul class="calc-disclaimer">
             <li><strong>Loan Amount Only:</strong> This calculator estimates payments based solely on the loan principal, interest rate, and term. It does NOT include:</li>
             <ul style="margin-top:8px;">
                 <li>Property taxes</li>
