@@ -1,30 +1,37 @@
 (function(){
-  function apply(theme){
-    if(theme === 'dark'){
-      document.body.setAttribute('data-theme','dark');
-    } else {
-      document.body.removeAttribute('data-theme');
-    }
-    var btn = document.getElementById('themeToggle');
-    if(btn) btn.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+  function preferredTheme(){
+    try {
+      var saved = localStorage.getItem('site-theme');
+      if(saved === 'dark' || saved === 'light') return saved;
+    } catch (e) {}
+    if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark';
+    return 'light';
   }
+
+  function apply(theme){
+    var t = theme === 'dark' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', t);
+    document.documentElement.style.colorScheme = t;
+    if(document.body) document.body.setAttribute('data-theme', t);
+    var btn = document.getElementById('themeToggle');
+    if(btn) btn.setAttribute('aria-pressed', t === 'dark' ? 'true' : 'false');
+  }
+
+  apply(preferredTheme());
 
   function init(){
     try {
-      var saved = localStorage.getItem('site-theme');
-      if(saved) apply(saved);
-      else if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) apply('dark');
+      apply(preferredTheme());
 
       var btn = document.getElementById('themeToggle');
       if(!btn) return;
       btn.addEventListener('click', function(){
-        var isDark = document.body.getAttribute('data-theme') === 'dark';
+        var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
         var next = isDark ? 'light' : 'dark';
         apply(next);
-        localStorage.setItem('site-theme', next);
+        try { localStorage.setItem('site-theme', next); } catch (e) {}
       });
 
-      // Dispatch an event signaling theme init is complete so other scripts can wait
       try { document.dispatchEvent(new CustomEvent('site-theme-ready')); } catch(e) { console.warn('Could not dispatch site-theme-ready event'); }
     } catch(e){ console.error(e); }
   }
