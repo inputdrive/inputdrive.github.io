@@ -1,6 +1,6 @@
 # Security
 
-Report security issues to **info@inputdrivesecurity.us** (put `security` in the subject) or WhatsApp +1 703 957 8321.
+Report security issues to **info@inputdrivesecurity.us** (put `security` in the subject) or WhatsApp +1 904 770 5355.
 
 No public bug bounty. We can agree on a channel after first contact.
 
