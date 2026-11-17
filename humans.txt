@@ -6,7 +6,7 @@ Email: info@inputdrivesecurity.us
 /* TECH */
 Built with: HTML, CSS, Vanilla JS
 Hosting: GitHub Pages
-Analytics: None. No ads, no third-party tracking.
+Analytics: Google Analytics 4 (consent-aware, pageview-only). No ads.
 
 /* SOURCE */
 Source: https://github.com/inputdrive/inputdrive.github.io

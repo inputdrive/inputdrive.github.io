@@ -6,7 +6,7 @@ No public bug bounty. We can agree on a channel after first contact.
 
 ## Privacy
 
-This site collects no analytics and serves no ads.
+This site serves no ads. Google Analytics 4 is used for consent-aware, pageview-only measurement.
 
 - Theme preference may be stored in `localStorage`
 - The contact form does not post to a server; it opens the visitor’s mail client or WhatsApp

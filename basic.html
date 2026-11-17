@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; connect-src 'self' https://api.cdnjs.com; base-uri 'self'; form-action 'self'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self' https://www.googletagmanager.com; img-src 'self' data:; connect-src 'self' https://api.cdnjs.com https://www.google-analytics.com https://region1.google-analytics.com https://www.googletagmanager.com; base-uri 'self'; form-action 'self'">
     <meta name="description" content="Look up cdnjs libraries and copy versioned URLs with SRI hashes. Nothing from the CDN is executed on this page.">
     <meta name="theme-color" content="#0969da">
     <meta name="color-scheme" content="light dark">
@@ -110,6 +110,7 @@
         </div>
     </footer>
     <script src="/scripts/theme.js" defer></script>
+    <script src="/scripts/analytics-consent.js" defer></script>
     <script src="/scripts/last-modified.js" defer></script>
     <script src="/scripts/cdnjs-lookup.js" defer></script>
 </body>

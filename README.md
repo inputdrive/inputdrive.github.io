@@ -27,7 +27,7 @@ This tree is meant to replace the GitHub Pages root of `inputdrive/inputdrive.gi
 
 ## Privacy
 
-No ads, no analytics, no third-party tracking. `localStorage` is used only for the light/dark theme preference. The contact form never posts to a server; it opens `mailto:` or WhatsApp on the visitor’s device.
+No ads. Site analytics are enabled with Google Analytics 4 using pageview-only measurement and consent-aware behavior. `localStorage` is used for theme preference and analytics consent state. The contact form never posts to a server; it opens `mailto:` or WhatsApp on the visitor’s device.
 
 ## Pages
 
